@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Button, Card, Input, Image } from "antd";
+import { Form, Button, Card, Input, Image, Radio } from "antd";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
@@ -18,20 +18,26 @@ type FormData = {
   password: string;
   phone: string;
   address: string;
+  sex: string;
 };
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      phone: '',
-      address: ''
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      address: "",
+      sex: "",
     },
-    mode: 'onBlur' // Validate on blur
+    mode: "onBlur", // Validate on blur
   });
 
   const [signUp] = useSignUpMutation();
@@ -45,9 +51,10 @@ const Register = () => {
       password: data.password,
       phone: data.phone,
       address: data.address,
+      sex: data.sex,
     };
 
-    console.log(userInfo)
+    console.log(userInfo);
 
     try {
       const res = await signUp(userInfo).unwrap();
@@ -56,7 +63,7 @@ const Register = () => {
       dispatch(setUser({ user: user, token: res.accessToken }));
 
       toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-      navigate("/dashboard"); // Redirect based on user role
+      navigate("/user/dashboard"); // Redirect based on user role
     } catch (err: any) {
       if (err && err?.status === 400) {
         toast.error(err?.data.message || "Registration failed", {
@@ -79,43 +86,48 @@ const Register = () => {
         className={styles.card}
         style={{
           backgroundColor: "#FBFCF8",
-          maxHeight: "85vh",
+          maxHeight: "92vh",
           overflowY: "auto",
         }}
       >
         <Link to="/">
-          <Image width={200} src="\SportifyNow.png" alt="SportifyNow" />
+          <Image
+            width={160}
+            src="\SportifyNow.png"
+            alt="SportifyNow"
+            preview={false}
+          />
         </Link>
         <h2 className={styles.textSpecial}>Register Yourself</h2>
 
         <Form onFinish={handleSubmit(onSubmit)} layout="vertical">
           <Form.Item
             label="Name"
-            validateStatus={errors.name ? 'error' : ''}
+            validateStatus={errors.name ? "error" : ""}
             help={errors.name?.message}
           >
             <Controller
               name="name"
               control={control}
-              rules={{ required: 'Name is required' }}
+              rules={{ required: "Name is required" }}
               render={({ field }) => <Input {...field} />}
             />
           </Form.Item>
 
           <Form.Item
             label="Email"
-            validateStatus={errors.email ? 'error' : ''}
+            validateStatus={errors.email ? "error" : ""}
             help={errors.email?.message}
           >
             <Controller
               name="email"
               control={control}
               rules={{
-                required: 'Email is required',
+                required: "Email is required",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Please enter a valid email'
-                }
+                  message: "Please enter a valid email",
+                },
               }}
               render={({ field }) => <Input {...field} />}
             />
@@ -123,18 +135,18 @@ const Register = () => {
 
           <Form.Item
             label="Password"
-            validateStatus={errors.password ? 'error' : ''}
+            validateStatus={errors.password ? "error" : ""}
             help={errors.password?.message}
           >
             <Controller
               name="password"
               control={control}
               rules={{
-                required: 'Password is required',
+                required: "Password is required",
                 minLength: {
                   value: 8,
-                  message: 'Password must be at least 8 characters long'
-                }
+                  message: "Password must be at least 8 characters long",
+                },
               }}
               render={({ field }) => <Input.Password {...field} />}
             />
@@ -142,7 +154,7 @@ const Register = () => {
 
           <Form.Item
             label="Phone"
-            validateStatus={errors.phone ? 'error' : ''}
+            validateStatus={errors.phone ? "error" : ""}
             help={errors.phone?.message}
           >
             <Controller
@@ -153,14 +165,33 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
+            label="Sex"
+            validateStatus={errors.sex ? "error" : ""}
+            help={errors.sex?.message}
+            style={{ display: "flex", justifyContent: "flex-start" }}
+          >
+            <Controller
+              name="sex"
+              control={control}
+              rules={{ required: "Please select your sex" }}
+              render={({ field }) => (
+                <Radio.Group {...field}>
+                  <Radio value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                </Radio.Group>
+              )}
+            />
+          </Form.Item>
+
+          <Form.Item
             label="Address"
-            validateStatus={errors.address ? 'error' : ''}
+            validateStatus={errors.address ? "error" : ""}
             help={errors.address?.message}
           >
             <Controller
               name="address"
               control={control}
-              rules={{ required: 'Address is required' }}
+              rules={{ required: "Address is required" }}
               render={({ field }) => <Input {...field} />}
             />
           </Form.Item>

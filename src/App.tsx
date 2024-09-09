@@ -1,10 +1,11 @@
-import Home from './pages/home/Home';
+import { App as AntdApp } from 'antd';
+import HomeLayout from "./components/layout/HomeLayout";
 
 function App() {
   return (
-    <div>
-      <Home/>
-    </div>
+    <AntdApp>
+      <HomeLayout />
+    </AntdApp>
   );
 }
 

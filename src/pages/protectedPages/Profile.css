@@ -1,0 +1,19 @@
+.image-wrapper {
+    border: 5px solid; /* Adjust the width of the border */
+    border-radius: 50px; /* Same border radius as the image */
+    padding: 2px; /* Padding for better visualization */
+    background: linear-gradient(
+      to bottom right,
+      rgb(26, 38, 56) 0%,
+      rgb(1, 1, 9) 45%,
+      rgb(1, 1, 9) 55%,
+      rgba(44, 26, 56, 1) 100%
+    ); /* Gradient for the border */
+  }
+  
+  .image-wrapper img {
+    display: block;
+    border-radius: 50px;
+    background-clip: padding-box; /* Prevents the image from being affected by the border */
+  }
+  

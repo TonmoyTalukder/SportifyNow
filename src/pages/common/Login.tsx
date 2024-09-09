@@ -16,11 +16,11 @@ const Login = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string; password: string; role: string }>();
+  } = useForm<{ email: string; password: string; }>();
 
   const [login] = useLoginMutation();
 
-  const onSubmit = async (data: { email: string; password: string; role: string }) => {
+  const onSubmit = async (data: { email: string; password: string;}) => {
     const toastLoggingId = toast.loading("Logging in");
 
     const userInfo = {
@@ -35,13 +35,13 @@ const Login = () => {
       dispatch(setUser({ user: user, token: res.accessToken }));
 
       toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-      navigate(`/dashboard`); // Redirect based on user role ${data.role}
-    } catch (err) {
-      toast.error("Something went wrong!", {
+      navigate(`/${user.role}/dashboard`); // Redirect based on user role ${data.role}
+    } catch (err: any) {
+      toast.error(err.data.message, {
         id: toastLoggingId,
         duration: 2000,
       });
-      console.error("Login error:", err);
+      // console.error("Login error:", err.data.message);
     }
   };
 
@@ -49,7 +49,7 @@ const Login = () => {
     <div className={styles.myComponent}>
       <Card className={styles.card} style={{ backgroundColor: "#FBFCF8" }}>
         <Link to="/">
-          <Image width={200} src="/SportifyNow.png" alt="SportifyNow" />
+          <Image width={200} src="/SportifyNow.png" alt="SportifyNow" preview={false} />
         </Link>
         <h2 className={styles.textSpecial}>Login</h2>
 

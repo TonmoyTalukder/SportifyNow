@@ -64,7 +64,7 @@ const ResetPassword = () => {
     <div className={styles.myComponent}>
       <Card className={styles.card} style={{ backgroundColor: "#FBFCF8" }}>
       <Link to="/">
-          <Image width={200} src="/SportifyNow.png" alt="SportifyNow" />
+          <Image width={200} src="/SportifyNow.png" alt="SportifyNow" preview={false} />
         </Link>
         <h2 className={styles.textSpecial}>Reset Password</h2>
 

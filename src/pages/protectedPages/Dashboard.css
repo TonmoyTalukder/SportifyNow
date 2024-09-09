@@ -1,0 +1,63 @@
+.ball-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(92, 136, 218), #15054f);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: moveBallAround 5s infinite alternate ease-in-out;
+}
+
+.burst-container {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.mini-ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(92, 136, 218), #15054f);
+  opacity: 1;
+  animation-name: jumpAndVanish;
+  animation-fill-mode: forwards;
+}
+
+@keyframes jumpAndVanish {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.5);
+  }
+}
+
+@keyframes moveBallAround {
+  0% {
+    transform: translate(-50%, -50%) translateX(0) translateY(0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateX(30px) translateY(-20px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(50px) translateY(50px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateX(-30px) translateY(40px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(0) translateY(0);
+  }
+}

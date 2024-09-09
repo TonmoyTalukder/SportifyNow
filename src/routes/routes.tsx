@@ -1,16 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App.tsx";
-import Dashboard from "../pages/dashboard/Dashboard.tsx";
+import Dashboard from "../pages/protectedPages/Dashboard.tsx";
 import Login from "../pages/common/Login.tsx";
 import Register from "../pages/common/Register.tsx";
-import ProtectedRoute from "../components/layout/ProtectedRoute.tsx";
+import ProtectedRoute from "../components/ui/ProtectedRoute.tsx";
 import ForgetPassword from "../pages/common/ForgetPassword.tsx";
 import ResetPassword from "../pages/common/ResetPassword.tsx";
+import UserLayout from "../components/layout/UserLayout.tsx";
+import { routeGenerator } from "../utils/routesGenerator.ts";
+import { adminPaths } from "./admin.routes.tsx";
+import { userPaths } from "./user.routes.tsx";
+import { App as AntdApp } from "antd";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <AntdApp>
+        <App />
+      </AntdApp>
+    ),
   },
   {
     path: "/dashboard",
@@ -19,6 +28,24 @@ const router = createBrowserRouter([
         <Dashboard />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
+    children: routeGenerator(adminPaths),
+  },
+  {
+    path: "/user",
+    element: (
+      <ProtectedRoute>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
+    children: routeGenerator(userPaths),
   },
   {
     path: "/login",

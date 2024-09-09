@@ -23,20 +23,19 @@ const baseQueryWithRefreshToken : BaseQueryFn<FetchArgs, BaseQueryApi, Definitio
         //! Send Refresh
         console.log("Sending Refresh");
 
-        const res = await fetch('http://localhost:5000/api/auth/refresh/token', {
+        const res = await fetch('http://localhost:5000/api/auth/refresh-token', {
             method: 'POST',
             credentials: 'include',
         });
 
         const data = await res.json();
-        console.log("data from baseAPI: ", data);
 
-        if (data?.data?.newAccessToken) {
+        if (data?.newAccessToken) {
             const user = (api.getState() as RootState).auth.user;
             api.dispatch(
                 setUser({
                     user,
-                    token: data.data.newAccessToken,
+                    token: data.newAccessToken,
                 })
             )
             result = await baseQuery(args, api, extraOptions);
@@ -51,5 +50,6 @@ const baseQueryWithRefreshToken : BaseQueryFn<FetchArgs, BaseQueryApi, Definitio
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
+    tagTypes: ['singleUser'],
     endpoints: () => ({})
 })
