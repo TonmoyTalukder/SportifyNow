@@ -4,7 +4,6 @@ import {
   HomeOutlined,
   PhoneOutlined,
   MailOutlined,
-  TeamOutlined,
   ClockCircleOutlined,
 } from "@ant-design/icons";
 import { avatar1, avatar2 } from "../protectedPages/Avatar";
@@ -18,9 +17,9 @@ const About: React.FC = () => {
       children: (
         <Card
           title="Mission"
-          style={{ marginRight: 20, backgroundColor: "#FBFCF8" }}
+          style={{ marginRight: 20, backgroundColor: "#FBFCF8", }}
         >
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             At SportifyNow, our mission is to revolutionize the way athletes and
             sports enthusiasts connect with high-quality sports facilities. We
@@ -30,7 +29,7 @@ const About: React.FC = () => {
             recreational player, or a community organizer—has access to the best
             sports facilities that meet their specific needs and preferences.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             We strive to simplify the process of finding and booking sports
             venues by leveraging advanced technology, user-friendly interfaces,
@@ -39,7 +38,7 @@ const About: React.FC = () => {
             to finish, allowing users to focus on their game rather than
             administrative hassles.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             We are committed to fostering a vibrant sports community by
             facilitating access to a diverse range of facilities, from
@@ -48,7 +47,7 @@ const About: React.FC = () => {
             services, seeking feedback from our users, and adapting to the
             ever-evolving demands of the sports industry.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             Our innovative approach goes beyond just providing a booking
             platform; we aim to build lasting relationships with our users by
@@ -57,7 +56,7 @@ const About: React.FC = () => {
             suggestion aligns with the unique preferences and requirements of
             our users, enhancing their overall satisfaction.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             At SportifyNow, we believe in the power of sports to unite
             communities and inspire individuals. We actively support local
@@ -66,7 +65,7 @@ const About: React.FC = () => {
             to contribute to a healthier, more active society where everyone has
             the opportunity to enjoy their favorite sports.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             Looking ahead, we are committed to staying at the forefront of
             technological advancements and industry trends. Our team
@@ -76,7 +75,7 @@ const About: React.FC = () => {
             ensuring that SportifyNow remains the premier choice for sports
             facility booking.{" "}
           </p>{" "}
-          <p>
+          <p style={{color: 'black'}}>
             {" "}
             Through our passion for sports and innovation, we aim to support
             athletes of all levels in achieving their goals, promoting active
@@ -118,7 +117,6 @@ const About: React.FC = () => {
                 }
                 title="John Doe"
                 bordered={false}
-                actions={[<TeamOutlined />]}
               >
                 <p>CEO & Founder</p>
               </Card>
@@ -144,7 +142,6 @@ const About: React.FC = () => {
                 }
                 title="Jane Smith"
                 bordered={false}
-                actions={[<TeamOutlined />]}
               >
                 <p>Chief Operating Officer</p>
               </Card>
@@ -195,15 +192,15 @@ const About: React.FC = () => {
       children: (
         <Card
           title="Contact Us"
-          style={{ marginRight: 20, backgroundColor: "#FBFCF8" }}
+          style={{ marginRight: 20, backgroundColor: "#FBFCF8"}}
         >
-          <p>
+          <p style={{ color: 'black'}}>
             <HomeOutlined /> Office: 123 Sports Ave, Cityname
           </p>
-          <p>
+          <p style={{ color: 'black'}}>
             <PhoneOutlined /> Phone: +1 (123) 456-7890
           </p>
-          <p>
+          <p style={{ color: 'black'}}>
             <MailOutlined /> Email: info@sportifynow.com
           </p>
         </Card>

@@ -8,7 +8,6 @@ const { TextArea } = Input;
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
-  
 
   const onFinish = (values: any) => {
     setLoading(true);
@@ -37,6 +36,13 @@ const Contact = () => {
         layout="vertical"
         autoComplete="off"
         className="form-container"
+        style={{
+          boxShadow: "0 4px 8px #fbfcf850",
+          border: "1px solid #fbfcf850",
+          backgroundColor: "#FBFCF8",
+          padding: "2vh 2vw",
+          borderRadius: "15px",
+        }}
       >
         <Form.Item
           label="Name"
@@ -95,7 +101,6 @@ const Contact = () => {
               padding: "0 1vw",
             }}
             className="map"
-
           >
             <iframe
               title="Office Location"

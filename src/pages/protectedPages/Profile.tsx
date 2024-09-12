@@ -26,6 +26,7 @@ import { SerializedError } from "@reduxjs/toolkit";
 import CustomPhoneInput from "../../components/ui/CustomPhoneInput";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
+import NotFound from "../errors/NotFound";
 
 const { Title, Text } = Typography;
 
@@ -144,9 +145,7 @@ const Profile = () => {
 
   if (!fetchedUser) {
     return (
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        User data not found.
-      </div>
+      <NotFound/>
     );
   }
 

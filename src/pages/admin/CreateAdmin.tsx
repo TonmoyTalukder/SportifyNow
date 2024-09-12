@@ -81,15 +81,15 @@ const CreateAdmin = () => {
   return (
     <div
       className={styles.myComponent}
-      style={{ overflowX: "hidden", overflowY: 'auto', width: "auto" }}
+      style={{ overflowX: "hidden", overflowY: "auto", width: "auto" }}
     >
       <Card
         className={styles.card}
         style={{
           backgroundColor: "#FBFCF8",
-        //   marginTop: '8vh',
-        //   height: "82vh",
-        //   overflowY: "auto",
+          //   marginTop: '8vh',
+          //   height: "82vh",
+          //   overflowY: "auto",
         }}
       >
         <h2 className={styles.textSpecial}>Create Admin</h2>
@@ -97,7 +97,7 @@ const CreateAdmin = () => {
           theme={{
             components: {
               Form: {
-                labelColor: ''
+                labelColor: "#2f4465",
               },
             },
           }}
@@ -165,7 +165,9 @@ const CreateAdmin = () => {
                 name="phone"
                 control={control}
                 rules={{ required: "Phone number is required" }}
-                render={({ field }) => <CustomPhoneInput {...field} id="phone" />}
+                render={({ field }) => (
+                  <CustomPhoneInput {...field} id="phone" />
+                )}
               />
             </Form.Item>
 
@@ -179,9 +181,20 @@ const CreateAdmin = () => {
                 control={control}
                 rules={{ required: "Please select your sex" }}
                 render={({ field }) => (
-                  <Radio.Group  {...field} id="sex">
-                    <Radio style={{color: 'white'}} value="male">Male</Radio>
-                    <Radio style={{color: 'white'}} value="female">Female</Radio>
+                  <Radio.Group
+                    {...field}
+                    id="sex"
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                    }}
+                  >
+                    <Radio style={{ color: "#2f4465" }} value="male">
+                      Male
+                    </Radio>
+                    <Radio style={{ color: "#2f4465" }} value="female">
+                      Female
+                    </Radio>
                   </Radio.Group>
                 )}
               />
@@ -201,7 +214,11 @@ const CreateAdmin = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" block>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+              >
                 Create Admin
               </Button>
             </Form.Item>
