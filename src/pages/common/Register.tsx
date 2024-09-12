@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Button, Card, Input, Image, Radio } from "antd";
+import { Form, Button, Card, Input, Image, Radio, Modal } from "antd";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
@@ -10,6 +10,7 @@ import { TUser } from "../../types/userType";
 import styles from "../../styles/Login.module.css";
 import { useSignUpMutation } from "../../redux/features/auth/authApi";
 import CustomPhoneInput from "../../components/ui/CustomPhoneInput";
+import { useState } from "react";
 
 // Define the type for the form data
 type FormData = {
@@ -24,6 +25,9 @@ type FormData = {
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isModalVisible, setIsModalVisible] = useState(false); // Modal visibility state
+  const [formData, setFormData] = useState<FormData | null>(null); // To store form data before confirmation
+
   const {
     control,
     handleSubmit,
@@ -42,40 +46,47 @@ const Register = () => {
 
   const [signUp] = useSignUpMutation();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const toastLoggingId = toast.loading("Registering", { duration: 2000 });
+  // Handle form submission
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    setFormData(data); // Store form data temporarily
+    setIsModalVisible(true); // Show confirmation modal
+  };
 
-    const userInfo = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
-      address: data.address,
-      sex: data.sex,
-    };
+  // Handle the confirmation modal
+  const handleConfirm = async () => {
+    setIsModalVisible(false);
+    if (formData) {
+      const toastLoggingId = toast.loading("Registering", { duration: 2000 });
 
-    console.log(userInfo);
+      const userInfo = {
+        ...formData,
+      };
 
-    try {
-      const res = await signUp(userInfo).unwrap();
-      const user = verifyToken(res.accessToken) as TUser;
+      // console.log(userInfo);
 
-      dispatch(setUser({ user: user, token: res.accessToken }));
+      try {
+        const res = await signUp(userInfo).unwrap();
+        const user = verifyToken(res.accessToken) as TUser;
 
-      toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-      navigate("/user/dashboard"); // Redirect based on user role
-    } catch (err: any) {
-      if (err && err?.status === 400) {
-        toast.error(err?.data.message || "Registration failed", {
-          id: toastLoggingId,
-          duration: 2000,
-        });
-      } else {
-        toast.error("Something went wrong!", {
-          id: toastLoggingId,
-          duration: 2000,
-        });
-        console.error("Signup error:", err);
+        dispatch(
+          setUser({ user: { ...user, newUser: true }, token: res.accessToken }),
+        );
+
+        toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
+        navigate("/user/dashboard"); // Redirect based on user role
+      } catch (err: any) {
+        if (err && err?.status === 400) {
+          toast.error(err?.data.message || "Registration failed", {
+            id: toastLoggingId,
+            duration: 2000,
+          });
+        } else {
+          toast.error("Something went wrong!", {
+            id: toastLoggingId,
+            duration: 2000,
+          });
+          console.error("Signup error:", err);
+        }
       }
     }
   };
@@ -110,7 +121,7 @@ const Register = () => {
               name="name"
               control={control}
               rules={{ required: "Name is required" }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => <Input {...field} id="name" />}
             />
           </Form.Item>
 
@@ -129,7 +140,7 @@ const Register = () => {
                   message: "Please enter a valid email",
                 },
               }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => <Input {...field} id="email" />}
             />
           </Form.Item>
 
@@ -148,7 +159,9 @@ const Register = () => {
                   message: "Password must be at least 8 characters long",
                 },
               }}
-              render={({ field }) => <Input.Password {...field} />}
+              render={({ field }) => (
+                <Input.Password {...field} id="password" />
+              )}
             />
           </Form.Item>
 
@@ -160,7 +173,7 @@ const Register = () => {
             <Controller
               name="phone"
               control={control}
-              render={({ field }) => <CustomPhoneInput {...field} />}
+              render={({ field }) => <CustomPhoneInput {...field} id="phone" />}
             />
           </Form.Item>
 
@@ -175,7 +188,7 @@ const Register = () => {
               control={control}
               rules={{ required: "Please select your sex" }}
               render={({ field }) => (
-                <Radio.Group {...field}>
+                <Radio.Group {...field} id="sex">
                   <Radio value="male">Male</Radio>
                   <Radio value="female">Female</Radio>
                 </Radio.Group>
@@ -192,7 +205,7 @@ const Register = () => {
               name="address"
               control={control}
               rules={{ required: "Address is required" }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => <Input {...field} id="address" />}
             />
           </Form.Item>
 
@@ -208,6 +221,18 @@ const Register = () => {
             </span>
           </p>
         </Form>
+
+        {/* Confirmation Modal */}
+        <Modal
+          title="Confirm Registration"
+          open={isModalVisible}
+          onOk={handleConfirm}
+          onCancel={() => setIsModalVisible(false)}
+          okText="Confirm"
+          cancelText="Cancel"
+        >
+          <p>Are you sure you want to register with this information?</p>
+        </Modal>
       </Card>
     </div>
   );

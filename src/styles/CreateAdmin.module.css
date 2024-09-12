@@ -1,0 +1,153 @@
+.myComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    /* height: 100vh; Full viewport height */
+    background: linear-gradient(
+        to bottom right,
+        rgb(26, 38, 56) 0%,
+        rgb(1, 1, 9) 45%,
+        rgb(1, 1, 9) 55%,
+        rgba(44, 26, 56, 1) 100%
+      );
+    overflow-Y: auto;
+    border-radius: 15px;
+  }
+  
+  .textSpecial {
+    background: #2f4465;
+    background: radial-gradient(
+      ellipse farthest-corner at center center,
+      #84a4e0 0%,
+      #ba6bef 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .textSpecial2 {
+    text-align: center;
+    background: #2f4465;
+    background: radial-gradient(
+      ellipse farthest-corner at center center,
+      #626f85 0%,
+      #1a0529 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .card {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20vh;
+    margin-bottom: 2%;
+    background: linear-gradient(
+      to bottom right,
+      rgb(26, 38, 56) 0%,
+      rgb(1, 1, 9) 45%,
+      rgb(1, 1, 9) 55%,
+      rgba(44, 26, 56, 1) 100%
+    );
+    box-shadow: rgba(64, 5, 91, 0.586) 0px 50px 100px -20px,
+      rgba(173, 174, 177, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  }
+
+  @media (min-width: 340px) and (max-width: 350px) {
+    .card {
+        margin-top: 2%;
+      }
+  }
+  
+  @media (min-width: 390px) and (max-width: 500px) {
+    .card {
+        margin-top: 2%;
+      }
+  }
+
+
+  @media (min-width: 700px){
+    .card {
+        margin-top: 2%;
+      }
+  }
+  @media (min-height: 400px) and (max-height: 620px){
+    .card {
+        margin-top: 40vh;
+      }
+  }
+  @media (min-height: 720px) and (max-height: 820px){
+    .card {
+        margin-top: 10vh;
+      }
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .card {
+      width: 100%;
+    }
+  }
+  
+  
+  /* PhoneInputCustom.css */
+  
+  .phoneInputContainer {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  
+  /* Container for the PhoneInput component */
+  .phoneInput {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Input field styles */
+  .phoneInput .PhoneInputInput {
+    border-radius: 4px; /* Ensure consistency with Ant Design */
+    border: 1px solid #d9d9d9; /* Default border color */
+    background-color: #fff; /* Background color */
+    padding-left: 50px; /* Space for the flag */
+  }
+  
+  /* Remove focus box-shadow */
+  .phoneInput .PhoneInputInput:focus {
+    border-color: #1890ff; /* Ant Design's primary color */
+    box-shadow: none;
+  }
+  
+  /* Country flag container */
+  .phoneInput .PhoneInputCountry {
+    border: none; /* Remove border */
+    background-color: transparent; /* Background color */
+    box-shadow: none; /* Remove shadow */
+  }
+  
+  /* Remove color changes on hover and focus */
+  .phoneInput .PhoneInputCountry:hover,
+  .phoneInput .PhoneInputCountry:focus {
+    border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  
+  /* Flag arrow customization */
+  .phoneInput .PhoneInputCountry .PhoneInputCountrySelectArrow {
+    border-color: transparent; /* Remove arrow color change */
+    background-color: transparent; /* Remove background color change */
+  }
+  
+  .phoneInput .PhoneInputCountrySelectArrow::before {
+    border-color: transparent; /* Ensure arrow remains transparent */
+  }
+  

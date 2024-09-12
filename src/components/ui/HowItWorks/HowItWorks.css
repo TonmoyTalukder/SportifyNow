@@ -1,0 +1,39 @@
+.react-flow__node {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    /* padding: 10px; */
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22vw;
+  }
+  
+  .react-flow__edge {
+    stroke-width: 2;
+    stroke: #61dafb;
+  }
+  
+  .react-flow__controls {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .react-flow__logo {
+    display: none !important;
+  }
+  
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .react-flow__node {
+      width: 27%;
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Adjust styles for very small screens */
+    .react-flow__node {
+      width: 50%;
+      font-size: 10px;
+    }
+  }
+  

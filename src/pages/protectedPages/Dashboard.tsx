@@ -15,8 +15,8 @@ const Dashboard = () => {
     avatar = user.sex === "male" ? avatar1 : avatar2;
   }
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isBurst, setIsBurst] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,6 +78,7 @@ const Dashboard = () => {
                   src={avatar}
                   alt="SportifyNow"
                   preview={false}
+                  className="avatar-image"
                 />
               </Col>
               <Col
@@ -102,19 +103,27 @@ const Dashboard = () => {
                 />
               </Col>
               <Col span={24}>
-                <h1 style={{ marginTop: "2%" }}>
-                  Welcome Back, {user.name}!
-                </h1>
-                <p>Book your slot, and enjoy our epic games.</p>
+                <div className="welcome-text">
+                  <h1 style={{ marginTop: "2%" }}>
+                    {user.newUser
+                      ? `Welcome, ${user.name}!`
+                      : `Welcome Back, ${user.name}!`}
+                  </h1>
+                  <p>Book your slot, and enjoy our epic games.</p>
+                </div>
               </Col>
             </>
           ) : (
             <>
               <Col span={12}>
-                <h1 style={{ marginTop: "5%" }}>
-                  Welcome Back, {user.name}!
-                </h1>
-                <p>Book your slot, and enjoy our epic games.</p>
+                <div style={{ marginTop: "3%" }} className="welcome-text">
+                  <h1 style={{ marginTop: "2%" }}>
+                    {user.newUser
+                      ? `Welcome, ${user.name}!`
+                      : `Welcome Back, ${user.name}!`}
+                  </h1>
+                  <p>Book your slot, and enjoy our epic games.</p>
+                </div>
               </Col>
               <Col
                 span={12}
@@ -153,6 +162,7 @@ const Dashboard = () => {
                     height: "15vh",
                   }}
                   preview={false}
+                  className="avatar-image"
                 />
               </Col>
             </>

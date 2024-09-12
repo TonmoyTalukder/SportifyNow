@@ -1,0 +1,130 @@
+/* HomeSlide.css */
+
+/* Animation for when the current slide moves to the right (left to right) */
+@keyframes slideCurrentToNextPosition {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Animation for when the new slide comes from the left (left to right) */
+@keyframes slideNextFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideNextFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation for when the current slide moves to the left (right to left) */
+@keyframes slideCurrentBack {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Animation for when the new slide comes from the right (right to left) */
+@keyframes slideNextInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Apply this class when moving current slide from left to right (next) */
+.slide-current-to-next {
+  animation: slideCurrentToNextPosition 0.5s ease-out forwards;
+}
+
+/* Apply this class when the new slide comes from the left to replace the current one */
+.slide-next-from-left {
+  animation: slideNextFromLeft 0.5s ease-out forwards;
+}
+
+/* Apply this class when moving current slide from right to left (prev) */
+.slide-current-back {
+  animation: slideCurrentBack 0.5s ease-out forwards;
+}
+
+/* Apply this class when the new slide comes from the right to replace the current one */
+.slide-next-in {
+  animation: slideNextInFromRight 0.5s ease-out forwards;
+}
+
+/* General styles */
+.slide-container,
+.slideC-container {
+  position: relative;
+  z-index: 0;
+  overflow: visible; /* Ensure shadows are not clipped */
+}
+
+button {
+  z-index: 1; /* Ensure buttons are on top of the cards */
+}
+
+/* For Card's shadow to appear smoothly */
+.card {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.wave svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 45%; /* Center the SVG */
+  transform: translateX(-50%);
+  height: 100%; /* Ensure it fills the container vertically */
+  z-index: 0;
+}
+
+.wave path {
+  stroke-linecap: round; /* Makes the ends of the "S" curve rounded */
+}
+
+/* Animation for when the current slide fades out to the center */
+@keyframes slideCurrentFadeOutCenter {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.5); /* Shrink to 50% of its size */
+    opacity: 0;
+  }
+}
+
+/* Apply this class when moving the current slide to the center with fade out */
+.slide-current-fade-out-center {
+  animation: slideCurrentFadeOutCenter 0.5s ease-out forwards;
+  animation: slideNextFromRight 0.5s ease-out forwards;
+}

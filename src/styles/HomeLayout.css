@@ -1,0 +1,49 @@
+@keyframes scroll-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .scrolling-text-wrapper {
+    display: flex;
+    align-items: center;
+    height: 3vh;
+    width: 100%;
+    overflow: hidden; /* Hide overflowing text */
+    position: relative; /* Position relative for masking effect */
+  }
+  
+  .scrolling-text {
+    display: flex;
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: scroll-left 30s linear infinite; 
+    position: absolute; /* Position absolutely within the wrapper */
+  }
+  
+  .scrolling-text p {
+    margin: 0; /* Remove default margins */
+    display: inline-block;
+    /* Ensure there's no padding affecting layout */
+  }
+  
+  /* Container to hold duplicate text */
+  .scrolling-text-wrapper::before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    background: inherit; /* Inherit background from parent */
+    top: 0;
+    left: 0;
+  }
+  
+  .scrolling-text-wrapper::after {
+    content: attr(data-text);
+    display: inline-block;
+    white-space: nowrap; 
+    /* Prevent text from wrapping */
+  }
+  

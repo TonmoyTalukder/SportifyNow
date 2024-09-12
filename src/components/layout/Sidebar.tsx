@@ -99,8 +99,10 @@ const Sidebar = () => {
         />
       </ConfigProvider>
 
-      <div style={{ textAlign: "left", marginLeft: "1.5rem", marginTop: "1rem" }}>
-        <Button type="primary" danger onClick={handleLogout}>
+      <div style={{ textAlign: "left", marginLeft: "1.5rem", marginTop: "1rem", }}>
+        <Button style={{
+          border: 'transparent'
+        }} type="primary" danger onClick={handleLogout}>
          <LogoutOutlined />
         </Button>
       </div>

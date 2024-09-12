@@ -2,6 +2,17 @@ import { baseApi } from "../../api/baseApi";
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        getUsers: builder.query({
+            query: () => {
+                return ({
+                    url: `/auth/users`,
+                    method: "GET",
+                }
+                )
+            },
+            providesTags: ["user"],
+        }),
+
         getSingleUser: builder.query({
             query: (userId) => {
                 return ({
@@ -15,24 +26,37 @@ const userApi = baseApi.injectEndpoints({
 
         updateUser: builder.mutation({
             query: (userInfo) => {
-              return {
-                url: `/auth/users/${userInfo.id}`,
-                method: "PUT",
-                body: userInfo,
-              };
+                return {
+                    url: `/auth/users/${userInfo._id}`,
+                    method: "PUT",
+                    body: userInfo,
+                };
             },
-            invalidatesTags: ["singleUser"],
-          }),
+            invalidatesTags: ["singleUser", "user"],
+        }),
 
-          changePassword: builder.mutation({
+        changePassword: builder.mutation({
             query: (passwordInfo) => ({
                 url: `/auth/change-password`, // Adjust the URL if needed
                 method: "POST",
                 body: passwordInfo,
             }),
+            invalidatesTags: ["singleUser"],
+        }),
+
+        // Add this to the `endpoints` in your `userApi` setup
+        deleteUser: builder.mutation({
+            query: (userId) => {
+                console.log("userId => ", userId)
+                return {
+                    url: `/auth/users/${userId}`,
+                    method: "DELETE",
+                }
+            },
+            invalidatesTags: ["user"],
         }),
 
     })
 })
 
-export const { useGetSingleUserQuery, useUpdateUserMutation, useChangePasswordMutation } = userApi;
+export const { useGetSingleUserQuery, useUpdateUserMutation, useChangePasswordMutation, useGetUsersQuery, useDeleteUserMutation } = userApi;

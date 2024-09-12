@@ -1,4 +1,5 @@
 export type TUser = {
+    _id: string;
     id: string;
     name: string;
     email: string;
@@ -8,6 +9,7 @@ export type TUser = {
     avatar: string;
     sex: string;
     address: string;
+    newUser?: boolean;
     iat: number;
     exp: number;
 };

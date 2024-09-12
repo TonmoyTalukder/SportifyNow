@@ -1,16 +1,14 @@
-import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import HomeSlide from "../../components/ui/HomeSlide/HomeSlide";
+import HowItWorks from "../../components/ui/HowItWorks/HowitWorks";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate("/login");
-  }
+
   return (
-    <div>
-      <h1>SportifyNow App</h1>
-      <h2> This is home component </h2>
-      <Button onClick={handleLogin}>Login</Button>
+    <div style={{ backgroundColor: 'transparent', color: "white", height: 'auto' }}>
+      <div>
+        <HomeSlide />
+        <HowItWorks/>
+      </div>
     </div>
   );
 };

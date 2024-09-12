@@ -132,6 +132,7 @@ const Profile = () => {
   if (isError) {
     const errorMessage =
       (error as SerializedError)?.message || "An unexpected error occurred.";
+      console.log(errorMessage);
     return (
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         Error: {errorMessage}
@@ -210,8 +211,8 @@ const Profile = () => {
                     position: 'absolute',
                     top: 10,
                     right: 10,
-                    backgroundColor: '#fff',
-                    borderColor: '#ddd',
+                    backgroundColor: 'transparent',
+                    borderColor: 'transparent',
                     borderRadius: '50%',
                   }}
                   onClick={() => setIsAvatarEditing(true)}

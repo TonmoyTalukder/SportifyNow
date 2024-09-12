@@ -1,3 +1,40 @@
+.welcome-text {
+  position: relative;
+  opacity: 0;
+  transform: translate(-100px, -100px);
+  animation: slideInText 1.5s forwards ease-out;
+}
+
+@keyframes slideInText {
+  0% {
+    opacity: 0;
+    transform: translate(-100px, -100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.avatar-image {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideInAvatar 1.5s forwards ease-out;
+}
+
+@keyframes slideInAvatar {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
 .ball-container {
   position: absolute;
   top: 50%;

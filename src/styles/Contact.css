@@ -1,0 +1,99 @@
+.contact-container {
+    padding: 2rem;
+    background: linear-gradient(
+      to bottom right,
+      rgb(26, 38, 56) 0%,
+      rgb(1, 1, 9) 45%,
+      rgb(1, 1, 9) 55%,
+      rgba(44, 26, 56, 1) 100%
+    );
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  
+  h1 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-details {
+    text-align: left;
+    margin-left: 10px;
+  }
+  
+  .contact-details h2 {
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-details p {
+    margin: 0.5rem 0;
+  }
+  
+
+  .map-container h2 {
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .ant-form-item-label > label {
+    color: #fff;
+  }
+  
+  .ant-input,
+  .ant-btn {
+    border-radius: 5px;
+  }
+  
+  .ant-btn {
+    background-color: #1890ff;
+    border-color: #1890ff;
+    color: #fff;
+  }
+  
+  .ant-btn:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  
+
+  .responsive-col {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+
+  .map{
+    margin-top: 0;
+  }
+  
+  @media (min-width: 1000px) {
+    .form-container {
+      width: 50vw;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .form-container {
+      width: 30vw;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .responsive-col-right {
+      justify-content: right;
+    }
+    .responsive-col-left {
+      justify-content: left;
+    }
+    .map{
+      margin-top: 2vh;
+    }
+  }

@@ -32,10 +32,10 @@ const Login = () => {
       const res = await login(userInfo).unwrap();
       const user = verifyToken(res.accessToken) as TUser;
 
-      dispatch(setUser({ user: user, token: res.accessToken }));
+      dispatch(setUser({ user: {...user, newUser: false}, token: res.accessToken }));
 
       toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`); // Redirect based on user role ${data.role}
+      navigate(`/${user.role}/dashboard`); // Redirect based on user role
     } catch (err: any) {
       toast.error(err.data.message, {
         id: toastLoggingId,
@@ -54,7 +54,11 @@ const Login = () => {
         <h2 className={styles.textSpecial}>Login</h2>
 
         <Form onFinish={handleSubmit(onSubmit)} layout="vertical">
-          <Form.Item label="Email" name="email" style={{ color: "royalblue" }}>
+          <Form.Item
+            label="Email"
+            validateStatus={errors.email ? "error" : ""}
+            help={errors.email?.message}
+          >
             <Controller
               name="email"
               control={control}
@@ -68,32 +72,24 @@ const Login = () => {
               render={({ field }) => <Input {...field} />}
             />
           </Form.Item>
-          {errors.email && (
-            <div style={{ color: "red" }}>{errors.email.message}</div>
-          )}
 
           <Form.Item
             label="Password"
-            name="password"
-            style={{ textAlign: "left" }}
+            validateStatus={errors.password ? "error" : ""}
+            help={errors.password?.message}
           >
-            <div>
-              <Controller
-                name="password"
-                control={control}
-                rules={{
-                  required: "Password is required",
-                }}
-                render={({ field }) => <Input.Password {...field} />}
-              />
-              <span>
-                <Link to="/forget-password">Forgot Password?</Link>
-              </span>
-            </div>
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: "Password is required",
+              }}
+              render={({ field }) => <Input.Password {...field} />}
+            />
+            <span>
+              <Link to="/forget-password">Forgot Password?</Link>
+            </span>
           </Form.Item>
-          {errors.password && (
-            <div style={{ color: "red" }}>{errors.password.message}</div>
-          )}
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block>

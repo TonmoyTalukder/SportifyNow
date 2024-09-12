@@ -1,0 +1,11 @@
+/* CustomFooter.css */
+
+a:hover {
+    color: #daa611 !important;
+  }
+  
+  .ant-space a:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+  
