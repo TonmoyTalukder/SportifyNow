@@ -3,12 +3,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import { gradientStyle } from "../../styles/gradientStyle";
 import { useGetSingleFacilityQuery } from "../../redux/features/facility/facilityApi";
 import NotFound from "../errors/NotFound";
+import { FiMapPin, FiDollarSign, FiAward } from "react-icons/fi";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../redux/hook";
+import { redirectBooking } from "../../redux/features/auth/authSlice";
 
 const { Title, Paragraph } = Typography;
 
 const SportDetails = () => {
+  const user = useSelector((state: RootState) => state.auth.user!);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { data: facilityData, isLoading } = useGetSingleFacilityQuery(id);
   const facility = facilityData?.data;
 
@@ -16,7 +23,13 @@ const SportDetails = () => {
   if (!facility) return <NotFound />;
 
   const handleBookNow = () => {
-    navigate(`/booking/${id}`);
+    if (user) {
+      navigate(`/booking/${id}`);
+    } else {
+      dispatch(redirectBooking({fromBooking: true, bookingURL: `/booking/${id}`}));
+      navigate("/login");
+    }
+    
   };
 
   return (
@@ -43,10 +56,13 @@ const SportDetails = () => {
               {facility.name}
             </Title>
             <Paragraph style={{ color: "#FBFCF8" }}>
-              <strong>Location:</strong> {facility.location}
+              <FiMapPin /> <strong>Location:</strong> {facility.location}
             </Paragraph>
             <Paragraph style={{ color: "#FBFCF8" }}>
-              <strong>Price:</strong> ${facility.pricePerHour}/hour
+              <FiDollarSign /> <strong>Price:</strong> ${facility.pricePerHour}/hour
+            </Paragraph>
+            <Paragraph style={{ color: "#FBFCF8" }}>
+              <FiAward /> <strong>Rewards Point:</strong> {facility.rewards}
             </Paragraph>
             <Paragraph style={{ color: "#FBFCF8" }}>
               <strong>Description:</strong>

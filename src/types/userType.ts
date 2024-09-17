@@ -9,6 +9,8 @@ export type TUser = {
     avatar: string;
     sex: string;
     address: string;
+    rewards: number;
+    rewardsCount: number;
     newUser?: boolean;
     iat: number;
     exp: number;

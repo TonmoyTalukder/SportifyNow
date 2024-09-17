@@ -14,6 +14,7 @@ import {
   Input,
   Modal,
   Tooltip,
+  Radio,
 } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import "./Profile.css";
@@ -27,6 +28,7 @@ import CustomPhoneInput from "../../components/ui/CustomPhoneInput";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
 import NotFound from "../errors/NotFound";
+import ReferralCode from "../../components/ui/ProtectedPageUI/ReferralCode";
 
 const { Title, Text } = Typography;
 
@@ -41,6 +43,7 @@ const Profile = () => {
     isError,
     error,
   } = useGetSingleUserQuery(user.id);
+
   const [updateUser, { isLoading: isUpdatingUser }] = useUpdateUserMutation();
   const [changePassword, { isLoading: isChangingPassword }] =
     useChangePasswordMutation();
@@ -82,7 +85,7 @@ const Profile = () => {
     const phone = `${countryCode} ${phoneNumberParts.join(" ")}`;
 
     try {
-      await updateUser({ id: user.id, ...values, phone, avatar }).unwrap();
+      await updateUser({ _id: user.id, ...values, phone, avatar }).unwrap();
       // message.success("User details updated successfully.");
       toast.success("User details updated successfully.", { duration: 2000 });
       setIsEditing(false);
@@ -110,7 +113,7 @@ const Profile = () => {
     try {
       setAvatar(selectedAvatar);
       setAvatarKey(prevKey => prevKey + 1); // Force re-render
-      await updateUser({ id: user.id, avatar: selectedAvatar }).unwrap();
+      await updateUser({ _id: user.id, avatar: selectedAvatar }).unwrap();
       // message.success("Avatar updated successfully.");
       toast.success("Avatar updated successfully.", { duration: 2000 });
       setIsAvatarEditing(false);
@@ -229,7 +232,7 @@ const Profile = () => {
               textAlign: isMobile ? "center" : "left",
             }}
           >
-            <Title level={isMobile ? 3 : 2} style={{ marginBottom: "10px" }}>
+            <Title level={isMobile ? 3 : 2} style={{ marginBottom: "10px", color: 'black' }}>
               {fetchedUser.name}
             </Title>
             <Text type="secondary" style={{ fontSize: "16px" }}>
@@ -267,9 +270,12 @@ const Profile = () => {
             >
               Change Password
             </Button>
+            <ReferralCode/>
           </Col>
         </Row>
       </Card>
+
+      
 
       <Modal
         title="Edit Details"
@@ -295,6 +301,18 @@ const Profile = () => {
               onChange={(value: string) => setPhoneNumber(value)}
             />
           </Form.Item>
+          <Form.Item
+              name="sex"
+              label="Sex"
+              rules={[
+                { required: true, message: "Please input the sex details!" },
+              ]}
+            >
+              <Radio.Group id="role">
+                  <Radio value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                </Radio.Group>
+            </Form.Item>
           <Form.Item name="address" label="Address">
             <Input />
           </Form.Item>

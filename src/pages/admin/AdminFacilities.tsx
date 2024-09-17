@@ -157,7 +157,15 @@ const AdminFacilities: React.FC = () => {
 
             <Form.Item
               name="pricePerHour"
-              label="pricePerHour"
+              label="Price/Hour"
+              rules={[{ required: true, message: "Please input the pricePerHour!" }]}
+            >
+              <AntdInput />
+            </Form.Item>
+
+            <Form.Item
+              name="rewards"
+              label="Rewards"
               rules={[{ required: true, message: "Please input the pricePerHour!" }]}
             >
               <AntdInput />

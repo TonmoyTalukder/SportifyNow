@@ -37,9 +37,9 @@ const Contact = () => {
         autoComplete="off"
         className="form-container"
         style={{
-          boxShadow: "0 4px 8px #fbfcf850",
-          border: "1px solid #fbfcf850",
-          backgroundColor: "#FBFCF8",
+          boxShadow: "0 4px 8px #fbfcf890",
+          border: "1px solid #fbfcf890",
+          backgroundColor: "#FBFCF890",
           padding: "2vh 2vw",
           borderRadius: "15px",
         }}

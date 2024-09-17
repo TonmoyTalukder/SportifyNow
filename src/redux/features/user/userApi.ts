@@ -56,7 +56,36 @@ const userApi = baseApi.injectEndpoints({
             invalidatesTags: ["user"],
         }),
 
+        // Fetch existing referral code
+        getReferralCode: builder.query({
+            query: () => ({
+                url: `/auth/referral-code`,
+                method: "GET",
+            }),
+            providesTags: ["referralCode"],
+        }),
+
+        // Generate a new referral code
+        generateReferralCode: builder.mutation({
+            query: () => ({
+                url: `/auth/generate-referral`,
+                method: "POST",
+            }),
+            invalidatesTags: ["referralCode"],
+        }),
+
+        validateReferralCode: builder.mutation({
+            query: (referralCode) => {
+                console.log("referralCode => ", referralCode)
+                return {
+                    url: `/auth/validate-referral-code`,
+                    method: "POST",
+                    body: { referralCode },
+                }
+            },
+        }),
+
     })
 })
 
-export const { useGetSingleUserQuery, useUpdateUserMutation, useChangePasswordMutation, useGetUsersQuery, useDeleteUserMutation } = userApi;
+export const { useGetSingleUserQuery, useUpdateUserMutation, useChangePasswordMutation, useGetUsersQuery, useDeleteUserMutation, useGetReferralCodeQuery, useGenerateReferralCodeMutation, useValidateReferralCodeMutation } = userApi;

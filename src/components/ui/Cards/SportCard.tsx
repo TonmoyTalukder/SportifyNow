@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button } from "antd";
 import { Link } from "react-router-dom";
+import { FiMapPin, FiDollarSign } from "react-icons/fi";
 
 // Define the facility interface
 interface Facility {
@@ -37,7 +38,7 @@ const SportCard: React.FC<SportCardProps> = ({ facility }) => {
       cover={
         <img
           alt={facility.name}
-          src={facility.image} //"https://via.placeholder.com/150" // Placeholder for facility image
+          src={facility.image}
           style={{ height: "150px", objectFit: "cover" }}
         />
       }
@@ -45,17 +46,17 @@ const SportCard: React.FC<SportCardProps> = ({ facility }) => {
         borderRadius: "8px",
         height: "48vh",
         border: "1px solid #fbfcf850",
-        boxShadow: '0 4px 8px #fbfcf850', 
-        color: '#FBFCF8'
+        boxShadow: "0 4px 8px #fbfcf850",
+        color: "#FBFCF8",
       }}
     >
       <h2>{facility.name}</h2>
       <p>{truncatedDescription}</p>
       <p>
-        <strong>Price:</strong> ${facility.pricePerHour}/hour
+        <FiDollarSign /> <strong>Price:</strong> ${facility.pricePerHour}/hour
       </p>
       <p>
-        <strong>Location:</strong> {facility.location}
+        <FiMapPin /> <strong>Location:</strong> {facility.location}
       </p>
       <Link to={`/sports/${facility._id}`}>
         <Button type="primary">View Details</Button>

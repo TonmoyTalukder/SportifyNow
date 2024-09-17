@@ -133,7 +133,7 @@ const ForgetPassword = () => {
             </div>
           )}
 
-          <p>
+          <p style={{color: "black"}}>
             Not a member yet?{" "}
             <span>
               <Link to="/register">Sign Up</Link>

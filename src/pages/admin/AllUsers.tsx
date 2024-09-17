@@ -7,7 +7,8 @@ import {
   Form,
   Input as AntdInput,
   notification,
-  Switch, // Import Switch from Ant Design
+  Switch,
+  Radio, // Import Switch from Ant Design
 } from "antd";
 import { TUser } from "../../types/userType";
 import {
@@ -169,14 +170,20 @@ const AllUsers: React.FC = () => {
                 { required: true, message: "Please input the sex details!" },
               ]}
             >
-              <AntdInput />
+              <Radio.Group id="role">
+                  <Radio value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                </Radio.Group>
             </Form.Item>
             <Form.Item
               name="role"
               label="Role"
               rules={[{ required: true, message: "Please select the role!" }]}
             >
-              <AntdInput />
+              <Radio.Group id="role">
+                  <Radio value="admin">Admin</Radio>
+                  <Radio value="user">User</Radio>
+                </Radio.Group>
             </Form.Item>
             <Form.Item
               name="address"

@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow"; // Import effect-coverflow styles
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from "swiper/modules"; // Import EffectCoverflow
 import SportCard from "../../components/ui/Cards/SportCard";
+import "../../styles/FeaturedSportsFacility.css";
 
 // Ant Design components
 const { Title } = Typography;
@@ -51,6 +52,7 @@ const FeaturedSportsFacility = () => {
   }
 
   const isLoopEnabled = latestFacilities.length > 1; // Check if there are enough slides for looping
+  
 
   return (
     <div style={{ padding: "2vh 8vw" }}>

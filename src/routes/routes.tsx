@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter,  } from "react-router-dom";
 import Dashboard from "../pages/protectedPages/Dashboard.tsx";
 import Login from "../pages/common/Login.tsx";
 import Register from "../pages/common/Register.tsx";
@@ -15,7 +15,7 @@ import { homePaths } from "./home.routes.tsx";
 import NotFound from "../pages/errors/NotFound.tsx"; 
 import Unauthorized from "../pages/errors/Unauthorized.tsx";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: (

@@ -10,13 +10,13 @@ interface CustomPhoneInputProps {
 
 const CustomPhoneInput = forwardRef<InputRef, CustomPhoneInputProps>(
   ({ value, onChange, id }, ref) => {
-    const [countryCode, setCountryCode] = useState<string>("+91");
+    const [countryCode, setCountryCode] = useState<string>("+880");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
 
     useEffect(() => {
       // Split value into country code and phone number
       const [code, ...number] = value.split(" ");
-      setCountryCode(code || "+91");
+      setCountryCode(code || "+880");
       setPhoneNumber(number.join(" ") || "");
     }, [value]);
 

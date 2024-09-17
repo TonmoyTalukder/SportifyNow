@@ -2,16 +2,20 @@ import { Form, Button, Card, Input, Image } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hook";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { resetRedirect, setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TUser } from "../../types/userType";
 import styles from "../../styles/Login.module.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const booking = useSelector((state: RootState) => state.auth);
+
   const {
     control,
     handleSubmit,
@@ -35,7 +39,12 @@ const Login = () => {
       dispatch(setUser({ user: {...user, newUser: false}, token: res.accessToken }));
 
       toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`); // Redirect based on user role
+      if (booking?.fromBooking) {
+        navigate(booking!.bookingURL!);
+        dispatch(resetRedirect());
+      } else {
+        navigate(`/${user.role}/dashboard`); // Redirect based on user role
+      }
     } catch (err: any) {
       toast.error(err.data.message, {
         id: toastLoggingId,
@@ -97,7 +106,7 @@ const Login = () => {
             </Button>
           </Form.Item>
 
-          <p>
+          <p style={{color: "black"}}>
             Not a member yet?{" "}
             <span>
               <Link to="/register">Sign Up</Link>

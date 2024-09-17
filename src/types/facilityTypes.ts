@@ -4,6 +4,7 @@ export type TFacility = {
     image: string;
     location: string;
     pricePerHour: number;
+    rewards: number;
     description: string;
   }
 

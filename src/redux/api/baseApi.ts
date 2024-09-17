@@ -19,6 +19,8 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithRefreshToken : BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = async (args, api, extraOptions): Promise<any> => {
     let result = await baseQuery(args, api, extraOptions);
 
+    console.log("response from baseApi => ", result)
+
     if (result.error?.status === 401) {
         //! Send Refresh
         console.log("Sending Refresh");
@@ -27,6 +29,8 @@ const baseQueryWithRefreshToken : BaseQueryFn<FetchArgs, BaseQueryApi, Definitio
             method: 'POST',
             credentials: 'include',
         });
+
+        console.log(res);
 
         const data = await res.json();
 
@@ -50,6 +54,6 @@ const baseQueryWithRefreshToken : BaseQueryFn<FetchArgs, BaseQueryApi, Definitio
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes: ['singleUser', 'user', 'facility', 'singleFacility'],
+    tagTypes: ['singleUser', 'user', 'facility', 'singleFacility', 'referralCode', "singleBooking", "booking", 'reviews', 'facilityReviews', 'userReviews'],
     endpoints: () => ({})
 })

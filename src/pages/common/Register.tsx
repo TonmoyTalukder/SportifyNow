@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Button, Card, Input, Image, Radio, Modal } from "antd";
+import { Form, Button, Card, Input, Image, Radio, Modal, Spin } from "antd";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hook";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { resetRedirect, setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -11,6 +10,9 @@ import styles from "../../styles/Login.module.css";
 import { useSignUpMutation } from "../../redux/features/auth/authApi";
 import CustomPhoneInput from "../../components/ui/CustomPhoneInput";
 import { useState } from "react";
+import { useValidateReferralCodeMutation } from "../../redux/features/user/userApi";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 // Define the type for the form data
 type FormData = {
@@ -20,18 +22,27 @@ type FormData = {
   phone: string;
   address: string;
   sex: string;
+  referralCode?: string;
 };
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isModalVisible, setIsModalVisible] = useState(false); // Modal visibility state
-  const [formData, setFormData] = useState<FormData | null>(null); // To store form data before confirmation
+  const booking = useSelector((state: RootState) => state.auth);
+  const [isReferralModalVisible, setIsReferralModalVisible] = useState(false); // Referral modal state
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] =
+    useState(false); // Confirmation modal state
+  const [formData, setFormData] = useState<FormData | null>(null); // Form data before confirmation
+  const [isCheckingReferral, setIsCheckingReferral] = useState(false); // Loading state for referral code check
+  const [referralError, setReferralError] = useState<string | null>(null); // Referral code error message
+  const [referralCodeInput, setReferralCodeInput] = useState(""); // Local state for referral input
+  const [referralCodeCheck, setReferralCodeCheck] = useState(false); // Local state for referral input
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
       name: "",
@@ -45,25 +56,50 @@ const Register = () => {
   });
 
   const [signUp] = useSignUpMutation();
+  const [validateReferralCode] = useValidateReferralCodeMutation(); // Referral code validation API
 
   // Handle form submission
   const onSubmit: SubmitHandler<FormData> = (data) => {
     setFormData(data); // Store form data temporarily
-    setIsModalVisible(true); // Show confirmation modal
+    setIsReferralModalVisible(true); // Show referral code modal
   };
 
-  // Handle the confirmation modal
+  // Handle referral code submission
+  const handleReferralCodeSubmit = async () => {
+    setIsCheckingReferral(true);
+    setReferralError(null);
+
+    try {
+      const result = await validateReferralCode(referralCodeInput).unwrap(); // API to validate referral code
+      if (result.valid) {
+        setValue("referralCode", referralCodeInput); // Set referral code in form data if valid
+        toast.success("Referral code applied!");
+        setIsReferralModalVisible(false); // Close referral modal
+        setIsConfirmationModalVisible(true); // Show confirmation modal
+        setReferralCodeCheck(true);
+      } else {
+        setReferralError("Invalid referral code");
+      }
+    } catch (error) {
+      setReferralError("Invalid referral code");
+      console.log("error => ", error);
+    } finally {
+      setIsCheckingReferral(false);
+    }
+  };
+
+  // Handle confirmation modal
   const handleConfirm = async () => {
-    setIsModalVisible(false);
+    setIsConfirmationModalVisible(false);
     if (formData) {
       const toastLoggingId = toast.loading("Registering", { duration: 2000 });
 
       const userInfo = {
         ...formData,
+        referralCode: referralCodeCheck ? referralCodeInput : ""
       };
 
-      // console.log(userInfo);
-
+      console.log("userInfo => ", userInfo);
       try {
         const res = await signUp(userInfo).unwrap();
         const user = verifyToken(res.accessToken) as TUser;
@@ -73,7 +109,12 @@ const Register = () => {
         );
 
         toast.success("Logged in", { id: toastLoggingId, duration: 2000 });
-        navigate("/user/dashboard"); // Redirect based on user role
+        if (booking?.fromBooking) {
+          navigate(booking!.bookingURL!);
+          dispatch(resetRedirect());
+        } else {
+          navigate(`/${user.role}/dashboard`); // Redirect based on user role
+        }
       } catch (err: any) {
         if (err && err?.status === 400) {
           toast.error(err?.data.message || "Registration failed", {
@@ -214,7 +255,7 @@ const Register = () => {
               Sign Up
             </Button>
           </Form.Item>
-          <p>
+          <p style={{ color: "black" }}>
             Already a member?{" "}
             <span>
               <Link to="/login">Login</Link>
@@ -222,16 +263,61 @@ const Register = () => {
           </p>
         </Form>
 
+        {/* Referral Code Modal */}
+        <Modal
+          title="Enter Referral Code (Optional)"
+          open={isReferralModalVisible}
+          onOk={handleReferralCodeSubmit}
+          onCancel={() => {
+            setIsReferralModalVisible(false);
+            setIsConfirmationModalVisible(true); // Open confirmation modal after referral modal closes
+          }}
+          okText="Submit"
+          cancelText="Skip"
+        >
+          <Form.Item
+            label="Referral Code"
+            validateStatus={referralError ? "error" : ""}
+            help={referralError}
+          >
+            <Input
+              value={referralCodeInput}
+              onChange={(e) => setReferralCodeInput(e.target.value)}
+              placeholder="Enter referral code (optional)"
+            />
+          </Form.Item>
+
+          {isCheckingReferral && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Spin size="large" />
+            </div>
+          )}
+        </Modal>
+
         {/* Confirmation Modal */}
         <Modal
-          title="Confirm Registration"
-          open={isModalVisible}
+          title="Confirm your information"
+          open={isConfirmationModalVisible}
           onOk={handleConfirm}
-          onCancel={() => setIsModalVisible(false)}
+          onCancel={() => setIsConfirmationModalVisible(false)}
           okText="Confirm"
-          cancelText="Cancel"
+          cancelText="Edit"
         >
-          <p>Are you sure you want to register with this information?</p>
+          <p>
+            <strong>Name:</strong> {formData?.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {formData?.email}
+          </p>
+          <p>
+            <strong>Phone:</strong> {formData?.phone}
+          </p>
+          <p>
+            <strong>Sex:</strong> {formData?.sex}
+          </p>
+          <p>
+            <strong>Address:</strong> {formData?.address}
+          </p>
         </Modal>
       </Card>
     </div>
