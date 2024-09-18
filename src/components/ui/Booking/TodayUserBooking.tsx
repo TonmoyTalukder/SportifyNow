@@ -151,7 +151,7 @@ const TodayUserBooking = () => {
           <h1 style={{ textAlign: "center", color: "black" }}>
             You have no booking today!
           </h1>
-          <p style={{ textAlign: "center", color: "black" }}>
+          <p style={{ textAlign: "center", color: "black", fontSize: '20px' }}>
             <NavLink to="/sports">Book a sport facility</NavLink> now.
           </p>
         </div>

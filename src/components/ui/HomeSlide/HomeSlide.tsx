@@ -1,10 +1,23 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Image, Row } from "antd";
 import { useState, useEffect } from "react";
 import Slide1 from "./Slide1";
 import Slide2 from "./Slide2";
 import Slide3 from "./Slide3";
 import "./HomeSlide.css";
+import { Link } from "react-router-dom";
+import Title from "antd/es/typography/Title";
+import { useGetFacilityQuery } from "../../../redux/features/facility/facilityApi";
+
+interface Facility {
+  _id: string;
+  name: string;
+  image: string;
+  location: string;
+  pricePerHour: number;
+  description: string;
+  createdAt: string;
+}
 
 const HomeSlide = () => {
   const totalSlides = 3;
@@ -13,6 +26,7 @@ const HomeSlide = () => {
   const [direction, setDirection] = useState("right"); // Track the direction of the animation
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,6 +37,28 @@ const HomeSlide = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const { data: facilitiesData = [] } = useGetFacilityQuery(undefined, {
+    pollingInterval: 600000, // Polls every 10 minutes
+  });
+
+  const [latestFacilities, setLatestFacilities] = useState<Facility[]>([]);
+
+  const facilities = facilitiesData?.data;
+
+  // Fetch the latest 4 sports facilities
+  useEffect(() => {
+    if (facilities && facilities.length > 0) {
+      const sortedFacilities = [...facilities].sort(
+        (a: Facility, b: Facility) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      setLatestFacilities(sortedFacilities.slice(0, 1)); // Get the latest 1 facility
+    }
+  }, [facilities]);
+
+  const latestFacilityId =
+  latestFacilities.length > 0 ? latestFacilities[0]._id : '';
 
   const handleNext = () => {
     if (slideIndex < totalSlides - 1) {
@@ -125,7 +161,7 @@ const HomeSlide = () => {
           >
             {/* Card 1 */}
             <Card
-            className="wave"
+              className="wave"
               style={{
                 width: isMobile ? "80vw" : "35vw",
                 marginBottom: isMobile ? "3vh" : "0",
@@ -136,12 +172,116 @@ const HomeSlide = () => {
                 border: "0px",
                 boxShadow:
                   "0 8px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3)",
+                position: "relative", // Ensure card is a positioning context for children
+                overflow: "hidden", // Hide overflow to prevent SVG from appearing outside the card
               }}
             >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 1440 298">
+              <div style={{ zIndex: 1, position: "relative" }}>
+                <Row>
+                  <Col span={12}>
+                    <div>
+                      <Link to="/">
+                        <Image
+                          width={160}
+                          src="/SportifyNow.png"
+                          alt="SportifyNow"
+                          preview={false}
+                        />
+                      </Link>
+                    </div>
+                    <Title
+                      level={1}
+                      style={{
+                        textAlign: "left",
+                        // marginBottom: "1vh",
+                        color: "#FBFCF8",
+                        zIndex: 1,
+                      }}
+                    >
+                      SportifyNow
+                    </Title>
+
+                    <Title
+                      level={3}
+                      style={{
+                        textAlign: "left",
+                        marginBottom: "4vh",
+                        color: "#FBFCF8",
+                        zIndex: 1,
+                      }}
+                    >
+                      Easy Booking, Epic Games
+                    </Title>
+                  </Col>
+                  <Col span={12}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "start",
+                        height: "auto",
+                      }}
+                    >
+                      <Image
+                        width={200}
+                        src="/sportCeleb.jpg"
+                        alt="HeroCover"
+                        preview={false}
+                        style={{
+                          borderRadius: "100px",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: '-2vh'
+                      }}
+                    >
+                      <p
+                        style={{
+                          textAlign: "left",
+                          color: "#FBFCF8",
+                          zIndex: 1,
+                          fontSize: "18px",
+                        }}
+                      >
+                        <span>Explore Our</span>
+                        <br />
+                        <span>Latest Facility</span>
+                      </p>
+                      <Link to={`/sports/${latestFacilityId}`}>
+                        <div
+                          style={{
+                            backgroundColor: isHovered ? "#464f59" : "#819bb5",
+                            width: "7rem",
+                            height: "3rem",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: "40px",
+                            cursor: "pointer",
+                          }}
+                          onMouseEnter={() => setIsHovered(true)}
+                          onMouseLeave={() => setIsHovered(false)}
+                        >
+                          <p style={{ fontSize: "100%", fontWeight: "bold" }}>
+                            Book Now
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 10 1440 298"
+                className="wave-svg"
+              >
                 <path
                   fill="none"
                   stroke="rgba(31, 73, 115,0.9)"

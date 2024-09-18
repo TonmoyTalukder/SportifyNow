@@ -155,7 +155,7 @@ const UpcomingBookings = () => {
       {/* Update Modal */}
       <Modal
         title="Update Booking"
-        visible={isUpdateModalOpen}
+        open={isUpdateModalOpen}
         onCancel={handleUpdateModalClose}
         footer={null}
       >

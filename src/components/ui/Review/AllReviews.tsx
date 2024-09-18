@@ -36,7 +36,7 @@ const AllReviews = () => {
 
   useEffect(() => {
     if (reviewsData && reviewsData.data) {
-      setReviews(reviewsData.data);
+      setReviews(reviewsData.data.slice(-5));
     }
   }, [reviewsData]);
 
@@ -77,7 +77,7 @@ const AllReviews = () => {
         level={1}
         style={{ textAlign: "center", marginBottom: "5vh", color: "#FBFCF8" }}
       >
-        User Reviews
+        Happy Patrons Reviewed Us
       </Title>
 
       <Swiper

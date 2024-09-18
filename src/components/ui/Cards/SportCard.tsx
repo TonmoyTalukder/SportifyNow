@@ -44,7 +44,7 @@ const SportCard: React.FC<SportCardProps> = ({ facility }) => {
       }
       style={{
         borderRadius: "8px",
-        height: "48vh",
+        minHeight: "28rem",
         border: "1px solid #fbfcf850",
         boxShadow: "0 4px 8px #fbfcf850",
         color: "#FBFCF8",

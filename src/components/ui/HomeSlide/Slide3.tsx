@@ -1,4 +1,5 @@
-import { Card } from "antd";
+import { Card, Col, Image, Row } from "antd";
+import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 
 const Slide3 = () => {
@@ -29,10 +30,111 @@ const Slide3 = () => {
         overflow: "visible", // Allow shadows to render properly
       }}
     >
-      <h2>Slide 3</h2>
-      <p>Card content</p>
-      <p>Card content</p>
-      <p>Card content</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "transparent",
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        <Row
+          style={{
+            display: "flex",
+            justifyContent: "left",
+            alignItems: "center",
+            backgroundColor: "transparent",
+            padding: 0,
+            margin: 0,
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <Col
+            span={16}
+            style={{
+              height: "40vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+            <div style={{ position: "relative" }}>
+              {/* Image with crosswise lines overlay */}
+              <Image
+                src="/Infrastructure.png"
+                alt="HeroCover"
+                preview={false}
+                style={{
+                  borderRadius: "10px",
+                  width: "100%",
+                  height: "23rem",
+                }}
+              />
+              {/* Overlay pseudo-element for crosswise lines */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "1px",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                  background: `
+                    repeating-linear-gradient(
+                      135deg,
+                      #252729 1px,
+                      #252729 1px,
+                      transparent 2px,
+                      transparent 25px
+                    )`,
+                }}
+              />
+            </div>
+          </Col>
+          <Col
+            style={{
+              height: "40vh",
+              display: "flex",
+              justifyContent: "left",
+              alignItems: "center",
+            }}
+            span={8}
+          >
+            <div
+              style={{
+                marginLeft: "5px",
+              }}
+            >
+              <Title
+                level={1}
+                style={{
+                  textAlign: "left",
+                  color: "#FBFCF8",
+                  zIndex: 1,
+                }}
+              >
+                World-class Infrastructure
+              </Title>
+              <Title
+                level={4}
+                style={{
+                  textAlign: "left",
+                  color: "#FBFCF8",
+                  zIndex: 1,
+                }}
+              >
+                We have world class sport facility infrastructure.
+              </Title>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </Card>
   );
 };

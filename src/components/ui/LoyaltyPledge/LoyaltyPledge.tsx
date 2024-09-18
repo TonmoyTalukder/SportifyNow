@@ -131,7 +131,13 @@ const LoyaltyPledge: React.FC = () => {
                 Earn points with each booking and redeem them for special
                 discounts and perks.
               </p>
-              <Button type="primary" onClick={showLearnMoreModal}>
+              <Button
+                type="primary"
+                onClick={showLearnMoreModal}
+                style={{
+                  zIndex: 0,
+                }}
+              >
                 Learn More
               </Button>
             </Card>
@@ -144,7 +150,14 @@ const LoyaltyPledge: React.FC = () => {
               />
               <h2>Referral Bonuses</h2>
               <p>Earn extra points by referring friends to our platform.</p>
-              <Button type="primary">Refer a Friend</Button>
+              <Button
+                style={{
+                  zIndex: 0,
+                }}
+                type="primary"
+              >
+                Refer a Friend
+              </Button>
             </Card>
           </Col>
         </Row>
@@ -177,7 +190,13 @@ const LoyaltyPledge: React.FC = () => {
                   trailColor="#445261"
                   showInfo={false}
                 />
-                <Button type="primary" onClick={() => showTierModal(tier)}>
+                <Button
+                  type="primary"
+                  onClick={() => showTierModal(tier)}
+                  style={{
+                    zIndex: 0,
+                  }}
+                >
                   Explore {tier.name}
                 </Button>
               </Card>
@@ -189,7 +208,7 @@ const LoyaltyPledge: React.FC = () => {
       {/* Learn More Modal */}
       <Modal
         title="Booking Rewards"
-        visible={isLearnMoreModalVisible}
+        open={isLearnMoreModalVisible}
         onCancel={closeModal}
         footer={null}
       >
@@ -206,7 +225,7 @@ const LoyaltyPledge: React.FC = () => {
       {activeTier && (
         <Modal
           title={`${activeTier.name} Tier Benefits`}
-          visible={!!activeTier}
+          open={!!activeTier}
           onCancel={closeModal}
           footer={null}
         >

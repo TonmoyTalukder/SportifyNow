@@ -11,7 +11,7 @@ import {
   Popconfirm,
   Avatar,
 } from "antd";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   useGetReviewsByFacilityQuery,
@@ -24,7 +24,8 @@ import {
 import { RootState } from "../../../redux/store";
 import { PiPaperPlaneRightFill, PiUserDuotone } from "react-icons/pi";
 import "./reviewStyles.css";
-import UserDetailList, { Reply } from "../UserDetails/UserDetailList";
+// import UserDetailList, { Reply } from "../UserDetails/UserDetailList";
+import SingleReply, { Reply } from "./SingleReply";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -226,7 +227,11 @@ const SingleSportReview = () => {
                         onClick={() =>
                           handleEditReview(typedReview._id, typedReview.content)
                         }
-                        style={{ zIndex: 0, color: "lightblue", cursor: "pointer", }}
+                        style={{
+                          zIndex: 0,
+                          color: "lightblue",
+                          cursor: "pointer",
+                        }}
                       >
                         Edit
                       </div>
@@ -238,7 +243,13 @@ const SingleSportReview = () => {
                           okText="Yes"
                           cancelText="No"
                         >
-                          <span style={{ zIndex: 0, color: "red", cursor: "pointer", }}>
+                          <span
+                            style={{
+                              zIndex: 0,
+                              color: "red",
+                              cursor: "pointer",
+                            }}
+                          >
                             Delete
                           </span>
                         </Popconfirm>
@@ -273,7 +284,7 @@ const SingleSportReview = () => {
                 >
                   {typedReview.replies.length > 0 &&
                     typedReview.replies.map((reply, index) => (
-                      <UserDetailList
+                      <SingleReply
                         key={index}
                         replies={[reply]}
                         reviewId={typedReview._id}
@@ -289,25 +300,33 @@ const SingleSportReview = () => {
                     position: "relative",
                   }}
                 >
-                  <TextArea
-                    value={replyTexts[typedReview._id] || ""} // Get the reply text for the current review
-                    onChange={(e) =>
-                      handleReplyTextChange(typedReview._id, e.target.value)
-                    }
-                    placeholder={`Reply to ${typedReview!.userId.name}`}
-                    autoSize={{ minRows: minRow, maxRows: 5 }}
-                    className="textarea-custom"
-                    style={{
-                      borderRadius: "15px",
-                      paddingRight: "30px",
-                      boxSizing: "border-box",
-                      backgroundColor: "#252729",
-                      color: "#fff",
-                      border: "0px solid transparent",
-                    }}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                  />
+                  {user ? (
+                    <TextArea
+                      value={replyTexts[typedReview._id] || ""} // Get the reply text for the current review
+                      onChange={(e) =>
+                        handleReplyTextChange(typedReview._id, e.target.value)
+                      }
+                      placeholder={`Reply to ${typedReview!.userId.name}`}
+                      autoSize={{ minRows: minRow, maxRows: 5 }}
+                      className="textarea-custom"
+                      style={{
+                        borderRadius: "15px",
+                        paddingRight: "30px",
+                        boxSizing: "border-box",
+                        backgroundColor: "#252729",
+                        color: "#fff",
+                        border: "0px solid transparent",
+                      }}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
+                    />
+                  ) : (
+                    <div>
+                      <p style={{ textAlign: "center" }}>
+                        <Link to="/login">Login</Link> to reply.
+                      </p>
+                    </div>
+                  )}
                   {replyTexts[typedReview._id]?.length > 0 && (
                     <>
                       <button
@@ -351,53 +370,63 @@ const SingleSportReview = () => {
           border: "1px solid #fbfcf850",
         }}
       >
-        <Form.Item style={{ marginBottom: "0" }}>
-          <div style={{ position: "relative" }}>
-            <TextArea
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
-              placeholder={`Review as ${user!.name}`}
-              autoSize={{ minRows: minRow, maxRows: 5 }}
-              className="textarea-custom"
-              style={{
-                borderRadius: "15px",
-                paddingRight: "30px",
-                boxSizing: "border-box",
-                backgroundColor: "#252729",
-                color: "#fff",
-                border: "0px solid transparent",
-              }}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            {reviewTextExist && (
-              <>
-                <button
-                  style={{
-                    position: "absolute",
-                    bottom: "2px",
-                    right: "18px",
-                    backgroundColor: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    editReviewId ? handleUpdateReview() : handleCreateReview();
-                  }}
-                >
-                  <PiPaperPlaneRightFill
+        {user ? (
+          <Form.Item style={{ marginBottom: "0" }}>
+            <div style={{ position: "relative" }}>
+              <TextArea
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder={`Review as ${user.name}`}
+                autoSize={{ minRows: minRow, maxRows: 5 }}
+                className="textarea-custom"
+                style={{
+                  borderRadius: "15px",
+                  paddingRight: "30px",
+                  boxSizing: "border-box",
+                  backgroundColor: "#252729",
+                  color: "#fff",
+                  border: "0px solid transparent",
+                }}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+              {reviewTextExist && (
+                <>
+                  <button
                     style={{
-                      color: iconColor,
-                      fontSize: "20px",
+                      position: "absolute",
+                      bottom: "2px",
+                      right: "18px",
+                      backgroundColor: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
                     }}
-                  />
-                </button>
-              </>
-            )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      editReviewId
+                        ? handleUpdateReview()
+                        : handleCreateReview();
+                    }}
+                  >
+                    <PiPaperPlaneRightFill
+                      style={{
+                        color: iconColor,
+                        fontSize: "20px",
+                      }}
+                    />
+                  </button>
+                </>
+              )}
+            </div>
+          </Form.Item>
+        ) : (
+          <div>
+            <p style={{ textAlign: "center" }}>
+              <Link to="/login">Login</Link> to write a review.
+            </p>
           </div>
-        </Form.Item>
+        )}
       </Card>
 
       {/* Edit Review Modal */}

@@ -8,6 +8,7 @@ import {
   ConfigProvider,
   Segmented,
   Spin,
+  Pagination,
 } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "../../styles/Sports.css"; // For custom styles
@@ -35,11 +36,15 @@ const Sports = () => {
   const [priceRange, setPriceRange] = useState([0, 100]); // Assuming price range between 0-100
   const [priceSortOption, setPriceSortOption] = useState<string | null>(null);
   const [nameSortOption, setNameSortOption] = useState<string | null>(null);
+  
+  // State for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const facilitiesPerPage = 8; // Show 8 facilities per page
 
   const facilities = facilitiesData.data;
 
   // Log the facilities to debug
-  console.log("Facilities:", facilities);
+  // console.log("Facilities:", facilities);
 
   // Filtered facilities based on search terms and price range
   const filteredFacilities = Array.isArray(facilities)
@@ -70,13 +75,20 @@ const Sports = () => {
         })
     : [];
 
-    if (isLoading) {
-      return (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <Spin size="large" />
-        </div>
-      );
-    }
+  // Pagination logic: slice the array to get facilities for the current page
+  const startIndex = (currentPage - 1) * facilitiesPerPage;
+  const paginatedFacilities = filteredFacilities.slice(
+    startIndex,
+    startIndex + facilitiesPerPage
+  );
+
+  if (isLoading) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div style={gradientStyle} className="sports-container">
@@ -194,12 +206,22 @@ const Sports = () => {
           padding: "1vh 2vw",
         }}
       >
-        {filteredFacilities.map((facility: Facility) => (
+        {paginatedFacilities.map((facility: Facility) => (
           <Col key={facility._id} xs={24} sm={12} md={8} lg={6}>
             <SportCard facility={facility} />
           </Col>
         ))}
       </Row>
+
+      {/* Pagination */}
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Pagination
+          current={currentPage}
+          pageSize={facilitiesPerPage}
+          total={filteredFacilities.length}
+          onChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </div>
   );
 };

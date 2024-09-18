@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import "reactflow/dist/style.css";
 import "./HowItWorks.css"; // For additional styling
 import { edgeTypes } from "./CustomEdgeTypes"; // Import the edge types
+import Title from "antd/es/typography/Title";
 
 // Define the structure of a node
 interface CustomNode extends Node {
@@ -41,48 +42,69 @@ const HowItWorks: React.FC = () => {
   useEffect(() => {
     // Function to set responsive node positions
     const updateNodePositions = () => {
-      const width = window.innerWidth;
+      let width = window.innerWidth;
       const height = window.innerHeight;
+      if (width / height > 0.7 && width < 1100) {
+        width = width + 200;
+      }
 
       setNodes([
         {
           id: "1",
-          position: { x: isMobile ? width * 0.15 : width * 0.15, y: height * 0.1 },
+          position: {
+            x: isMobile ? width * 0.02 : width * 0.15,
+            y: height * 0.1,
+          },
           data: { label: "Select Sport" },
           type: "input",
           sourcePosition: Position.Bottom,
         },
         {
           id: "2",
-          position: { x: width * 0.5, y: height * 0.2 },
+          position: {
+            x: isMobile ? width * 0.4 : width * 0.5,
+            y: height * 0.2,
+          },
           data: { label: "Slot Availability Search" },
           targetPosition: Position.Left,
           sourcePosition: Position.Right,
         },
         {
           id: "3",
-          position: { x: width * 0.6, y: isMobile ? height * 0.4 : height * 0.3 },
+          position: {
+            x: isMobile ? width * 0.42 : width * 0.6,
+            y: isMobile ? height * 0.4 : height * 0.3,
+          },
           data: { label: "Slot Choosing" },
           targetPosition: Position.Right,
           sourcePosition: Position.Left,
         },
         {
           id: "4",
-          position: { x: width * 0.3, y: isMobile ? height * 0.5 : height * 0.4 },
+          position: {
+            x: isMobile ? width * 0.15 : width * 0.3,
+            y: isMobile ? height * 0.5 : height * 0.4,
+          },
           data: { label: "Book Slot" },
           targetPosition: Position.Left,
           sourcePosition: Position.Bottom,
         },
         {
           id: "5",
-          position: { x: width * 0.65, y: isMobile ? height * 0.6 : height * 0.5 },
+          position: {
+            x: isMobile ? width * 0.42 : width * 0.65,
+            y: isMobile ? height * 0.6 : height * 0.5,
+          },
           data: { label: "Login if Not Logged In" },
           targetPosition: Position.Left,
           sourcePosition: Position.Right,
         },
         {
           id: "6",
-          position: { x: width * 0.4, y: isMobile ? height * 0.75 : height * 0.65 },
+          position: {
+            x: isMobile ? width * 0.15 : width * 0.4,
+            y: isMobile ? height * 0.75 : height * 0.65,
+          },
           data: { label: "Complete Payment" },
           targetPosition: Position.Top,
           type: "output",
@@ -121,6 +143,16 @@ const HowItWorks: React.FC = () => {
 
   return (
     <div style={{ width: "99vw", marginTop: "5vh" }}>
+      <Title
+        level={1}
+        style={{
+          textAlign: "center",
+          color: "#FBFCF8",
+          zIndex: 1,
+        }}
+      >
+        How to book?
+      </Title>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

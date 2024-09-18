@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import CustomFooter from "../ui/CustomFooter";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { IoMdLogIn } from "react-icons/io";
 
 const { Header, Content } = Layout;
 
@@ -150,7 +151,7 @@ const HomeLayout = () => {
             position: isHeaderFixed ? "fixed" : "relative",
             width: "100%",
             top: 0,
-            zIndex: 1,
+            zIndex: 1000,
             backgroundColor: "#252729",
             boxShadow: "0 4px 15px rgba(0, 0, 0, 0.5)",
           }}
@@ -194,26 +195,66 @@ const HomeLayout = () => {
                 />
               )}
             </div>
-            <div>
-              {!isMobile && (
-                <Button
-                  onClick={handleLogin}
+            {user && (
+              <div style={{ width: "35%" }}>
+                <p
                   style={{
-                    backgroundColor: "transparent",
-                    color: "#c7632e",
-                    border: "1px solid #c7632e",
-                    borderRadius: "50%", // Makes it circular
-                    width: "40px", // Set equal width and height
-                    height: "40px",
-                    fontSize: "24px",
-                    display: "flex",
-                    justifyContent: "center", // Centers the icon horizontally
-                    alignItems: "center", // Centers the icon vertically
-                    filter: "drop-shadow(5px 5px 10px rgba(154, 10, 96, 0.8))",
+                    color: "white",
+                    textAlign: "right",
+                    marginRight: "5%",
+                    fontWeight: "bold",
+                    fontSize: "16px",
                   }}
                 >
-                  <UserOutlined />
-                </Button>
+                  {user.name}
+                </p>
+              </div>
+            )}
+            <div>
+              {!isMobile && (
+                <>
+                  {user ? (
+                    <div>
+                      <Button
+                        onClick={handleLogin}
+                        style={{
+                          backgroundColor: "transparent",
+                          color: "#c7632e",
+                          border: "1px solid #c7632e",
+                          borderRadius: "50%", // Makes it circular
+                          width: "40px", // Set equal width and height
+                          height: "40px",
+                          fontSize: "24px",
+                          display: "flex",
+                          justifyContent: "center", // Centers the icon horizontally
+                          alignItems: "center", // Centers the icon vertically
+                          filter:
+                            "drop-shadow(5px 5px 10px rgba(154, 10, 96, 0.8))",
+                        }}
+                      >
+                        <UserOutlined />
+                      </Button>
+                    </div>
+                  ) : (
+                    <span
+                      onClick={handleLogin}
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "#c7632e",
+                        width: "40px", // Set equal width and height
+                        height: "40px",
+                        // fontSize: "24px",
+                        display: "flex",
+                        justifyContent: "center", // Centers the icon horizontally
+                        alignItems: "center", // Centers the icon vertically
+                        filter:
+                          "drop-shadow(5px 5px 10px rgba(154, 10, 96, 0.8))",
+                      }}
+                    >
+                      <IoMdLogIn style={{ fontSize: "54rem" }} />
+                    </span>
+                  )}
+                </>
               )}
               {isMobile && (
                 <Button
