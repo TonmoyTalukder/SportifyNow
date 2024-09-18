@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Row, Col, Card, Button, Progress, Modal } from "antd";
 import {
   GiftOutlined,
-//   StarOutlined,
-//   TrophyOutlined,
+  //   StarOutlined,
+  //   TrophyOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
 import { RiPoliceBadgeLine } from "react-icons/ri";
@@ -27,7 +27,9 @@ const LoyaltyPledge: React.FC = () => {
       description: "0 - 500 Points",
       pointsRange: "0 to 500",
       color: "#c0c0c0",
-      icon: <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#c0c0c0" }} />,
+      icon: (
+        <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#c0c0c0" }} />
+      ),
       benefits: [
         "Basic Benefits",
         "10 Rewards Points on refer",
@@ -40,7 +42,9 @@ const LoyaltyPledge: React.FC = () => {
       description: "500 - 20,000 Points",
       pointsRange: "500 to 20000",
       color: "#FFD700",
-      icon: <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#FFD700" }} />,
+      icon: (
+        <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#FFD700" }} />
+      ),
       benefits: [
         "5% discount on every booking",
         "20 Rewards Points on refer",
@@ -53,7 +57,9 @@ const LoyaltyPledge: React.FC = () => {
       description: "20,000+ Points",
       pointsRange: "20000+",
       color: "#00FFFF",
-      icon: <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#00FFFF" }} />,
+      icon: (
+        <RiPoliceBadgeLine style={{ fontSize: "40px", color: "#00FFFF" }} />
+      ),
       benefits: [
         "9% discount on every booking",
         "30 Rewards Points on refer",
@@ -71,12 +77,11 @@ const LoyaltyPledge: React.FC = () => {
     color: "#fff",
     textAlign: "center" as const,
     padding: "20px",
-    height: '300px'
+    height: "300px",
   };
 
   const sectionStyle = {
-    background:
-      "linear-gradient(to bottom right, rgb(26, 38, 56) 0%, rgb(1, 1, 9) 45%, rgb(1, 1, 9) 55%, rgba(44, 26, 56, 1) 100%)",
+    background: "transparent",
     padding: "50px 20px",
     color: "#fff",
     textAlign: "center" as const,
@@ -110,12 +115,13 @@ const LoyaltyPledge: React.FC = () => {
         <h2 style={{ color: "#fff", fontSize: "2rem", marginBottom: "30px" }}>
           Earn Rewards
         </h2>
-        <Row gutter={[16, 16]}
-        style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}
+        <Row
+          gutter={[16, 16]}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Col xs={24} md={12} lg={6}>
             <Card style={cardStyle} bordered={false} hoverable>
@@ -149,7 +155,9 @@ const LoyaltyPledge: React.FC = () => {
         <h2 style={{ color: "#fff", fontSize: "2rem", marginBottom: "30px" }}>
           Tier Badges
         </h2>
-        <p  style={{ color: "#fff", fontSize: "1rem", marginBottom: "50px" }}>Based on total earned reward points</p>
+        <p style={{ color: "#fff", fontSize: "1rem", marginBottom: "50px" }}>
+          Based on total earned reward points
+        </p>
         <Row gutter={[16, 16]}>
           {tiers.map((tier) => (
             <Col key={tier.name} xs={24} md={12} lg={8}>
@@ -166,6 +174,7 @@ const LoyaltyPledge: React.FC = () => {
                       : 100
                   }
                   strokeColor={tier.color}
+                  trailColor="#445261"
                   showInfo={false}
                 />
                 <Button type="primary" onClick={() => showTierModal(tier)}>

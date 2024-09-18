@@ -8,11 +8,12 @@ import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/hook";
 import { redirectBooking } from "../../redux/features/auth/authSlice";
+import SingleSportReview from "../../components/ui/Review/SingleSportReview";
 
 const { Title, Paragraph } = Typography;
 
 const SportDetails = () => {
-  const user = useSelector((state: RootState) => state.auth.user!);
+  const user = useSelector((state: RootState) => state.auth.user);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -26,10 +27,11 @@ const SportDetails = () => {
     if (user) {
       navigate(`/booking/${id}`);
     } else {
-      dispatch(redirectBooking({fromBooking: true, bookingURL: `/booking/${id}`}));
+      dispatch(
+        redirectBooking({ fromBooking: true, bookingURL: `/booking/${id}` }),
+      );
       navigate("/login");
     }
-    
   };
 
   return (
@@ -50,6 +52,7 @@ const SportDetails = () => {
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               boxShadow: "0 4px 8px #fbfcf850",
               border: "1px solid #fbfcf850",
+              marginBottom: '0',
             }}
           >
             <Title level={3} style={{ color: "#FBFCF8" }}>
@@ -59,7 +62,8 @@ const SportDetails = () => {
               <FiMapPin /> <strong>Location:</strong> {facility.location}
             </Paragraph>
             <Paragraph style={{ color: "#FBFCF8" }}>
-              <FiDollarSign /> <strong>Price:</strong> ${facility.pricePerHour}/hour
+              <FiDollarSign /> <strong>Price:</strong> ${facility.pricePerHour}
+              /hour
             </Paragraph>
             <Paragraph style={{ color: "#FBFCF8" }}>
               <FiAward /> <strong>Rewards Point:</strong> {facility.rewards}
@@ -73,11 +77,15 @@ const SportDetails = () => {
               type="primary"
               size="large"
               onClick={handleBookNow}
-              style={{ width: "100%" }}
+              style={{ width: "100%", zIndex: 0 }}
             >
               Book Now
             </Button>
           </Card>
+
+          <div>
+            <SingleSportReview />
+          </div>
         </Col>
       </Row>
     </div>

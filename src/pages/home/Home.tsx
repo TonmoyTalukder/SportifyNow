@@ -2,6 +2,7 @@ import FeaturedSportsFacility from "../../components/ui/FeaturedSportsFacility";
 import HomeSlide from "../../components/ui/HomeSlide/HomeSlide";
 import HowItWorks from "../../components/ui/HowItWorks/HowitWorks";
 import LoyaltyPledge from "../../components/ui/LoyaltyPledge/LoyaltyPledge";
+import AllReviews from "../../components/ui/Review/AllReviews";
 
 const Home = () => {
 
@@ -11,6 +12,7 @@ const Home = () => {
         <HomeSlide />
         <FeaturedSportsFacility/>
         <HowItWorks/>
+        <AllReviews/>
         <LoyaltyPledge/>
       </div>
     </div>

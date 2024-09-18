@@ -1,0 +1,4 @@
+.textarea-custom::placeholder {
+    color: #7c7e80;
+    opacity: 1; /* Ensures the placeholder text is fully opaque */
+  }

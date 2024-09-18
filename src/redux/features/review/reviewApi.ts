@@ -59,6 +59,16 @@ const reviewApi = baseApi.injectEndpoints({
       invalidatesTags: ['reviews', 'facilityReviews', 'userReviews'],
     }),
 
+    // Delete a review (soft delete)
+    deleteReply: builder.mutation<void, { reviewId: string, replyId: string }>({
+      query: ({ reviewId, replyId }) => ({
+        url: `/review/${reviewId}/replies/${replyId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['reviews', 'facilityReviews', 'userReviews'],
+    }),
+
+
     // Admin delete a review
     adminDeleteReview: builder.mutation({
       query: (reviewId) => ({
@@ -89,4 +99,5 @@ export const {
   useDeleteReviewMutation,
   useAdminDeleteReviewMutation,
   useAddReplyMutation,
+  useDeleteReplyMutation,
 } = reviewApi;

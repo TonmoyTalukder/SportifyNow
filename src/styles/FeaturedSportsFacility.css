@@ -13,4 +13,9 @@
     color: #fff;
     background: #007aff;
   }
+
+  .swiper {
+    width: 100%!important;
+    /* height: 320px; */
+  }
   
