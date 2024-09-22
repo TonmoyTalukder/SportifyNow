@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# Sportify Now
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+The project is a sports facility booking platform. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Description
 
-## Expanding the ESLint configuration
+Purpose of this project is developing a sport facility booking platform with React + Vite using TypeScript, that user can easily book a sport facility, review or earn rewards. As admin user can manage booking, facility and users. 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+**USERS**
+- Book a facility. 
+- Payment system using aamarpay. 
+- Review a facility or reply to other's review.
+- Cancel booking. 
+- Earn Rewards by booking, sign up and inviting other users by referral code. 
+- Use rewards for several benefits. 
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+**ADMIN**
+- Admin can run CRUD operation in facility.
+- Delete users. 
+- See Bookings.
+- Delete any Review or Comments. 
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Technology Stack
+
+**Frontend**
+- React
+- Redux
+- TypeScript
+- Ant Design
+
+**Backend**
+- Node Js
+- Express Js
+- TypeScript
+
+**Database**
+- NoSQL
+- MongoDB
+- Mongoose 
+
+### Installation Steps
+
+1. git clone https://github.com/TonmoyTalukder/Sports-Facility-Booking-Platform.git
+2. cd /path/to/your/directory
+3. npm install
+4. npm run dev
