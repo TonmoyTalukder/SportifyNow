@@ -49,3 +49,7 @@ Purpose of this project is developing a sport facility booking platform with Rea
 2. cd /path/to/your/directory
 3. npm install
 4. npm run dev
+
+### Admin Credentials
+Email:  phtest@newadmin.com
+Password: 12345678

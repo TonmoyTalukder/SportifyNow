@@ -63,7 +63,7 @@ const CheckAvailability = ({ facilityId }: { facilityId: string }) => {
   } | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [tempRewards, setTempRewards] = useState(user.rewards); // Temporary rewards points
+  const [tempRewards, setTempRewards] = useState(user?.rewards); // Temporary rewards points
   const [selectedDiscount, setSelectedDiscount] = useState(0); // Track selected discount
 
   // Booking API hook
@@ -92,7 +92,8 @@ const CheckAvailability = ({ facilityId }: { facilityId: string }) => {
     (facility: { facilityId: string }) => facility.facilityId === facilityId,
   );
   const { data: facilityInformation } = useGetSingleFacilityQuery(
-    facilityData?.facilityId,
+    facilityData? facilityData?.facilityId: facilityId,
+    { pollingInterval: 30000 },
   );
 
   // console.log("facilityId => ", facilityId);
@@ -197,7 +198,7 @@ const CheckAvailability = ({ facilityId }: { facilityId: string }) => {
   const slots = !selectedDate ? [] : availableSlots;
 
   const facilityPricePerHour =
-    facilityInformation?.data.pricePerHour || "Price not available"; // Assuming the price is available in the facilityData
+    facilityInformation?.data.pricePerHour || "Price not available"; 
 
   const handleDateChange = (date: moment.Moment | null) => {
     setSelectedDate(date);
@@ -519,8 +520,9 @@ const CheckAvailability = ({ facilityId }: { facilityId: string }) => {
         <br />
         <Text>
           Total Cost: <strong>${calculateTotalCost()}</strong>{" "}
-          {discount > 0 && <span>({discount}% discount applied)</span>} // +
-          selectedDiscount
+          {discount + selectedDiscount > 0 && (
+            <span>({discount + selectedDiscount}% discount applied)</span>
+          )}
         </Text>
         {
           // isPaymentLoading && <Spin tip="Initiating payment..." />

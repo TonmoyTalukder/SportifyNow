@@ -49,7 +49,7 @@ const SingleSportReview = () => {
   const { data: reviewsData, isLoading } = useGetReviewsByFacilityQuery(
     facilityId,
     {
-      pollingInterval: 30000, // 30 seconds in milliseconds
+      pollingInterval: 10000, // 10 seconds in milliseconds
     },
   );
 

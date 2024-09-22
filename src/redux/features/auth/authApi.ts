@@ -21,7 +21,8 @@ const authApi = baseApi.injectEndpoints({
                     body: userInfo,
                 }
                 )
-            }
+            },
+            invalidatesTags: ["singleUser", "user"],
         }),
 
         forgotPassword: builder.mutation({
@@ -37,18 +38,18 @@ const authApi = baseApi.injectEndpoints({
 
         resetPassword: builder.mutation({
             query: ({ token, password }: { token: string, password: string }) => {
-              // Log the values for debugging
-              console.log("Reset Password Request:");
-              console.log("Token:", token);
-              console.log("Password:", password);
-      
-              return {
-                url: `/auth/reset-password/${token}`,
-                method: 'POST',
-                body: { password },
-              };
+                // Log the values for debugging
+                console.log("Reset Password Request:");
+                console.log("Token:", token);
+                console.log("Password:", password);
+
+                return {
+                    url: `/auth/reset-password/${token}`,
+                    method: 'POST',
+                    body: { password },
+                };
             },
-          }),
+        }),
 
     })
 })

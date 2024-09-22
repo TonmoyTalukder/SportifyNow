@@ -23,8 +23,11 @@ const SingleReply: React.FC<Props> = ({ replies, reviewId }) => {
 
   // const replyId = replies[0]._id;
 
+  // console.log(replies)
+
   const { data: replyUserData } = useGetSingleUserQuery(replies[0].userId);
   const replyUser = replyUserData?.data;
+  // console.log(replyUser)
   const replyUserAvatar = replyUser?.avatar;
 
   const [deleteReply] = useDeleteReplyMutation(); // Mutation to delete the reply
@@ -84,7 +87,7 @@ const SingleReply: React.FC<Props> = ({ replies, reviewId }) => {
                     color: "lightblue",
                   }}
                 >
-                  {replyUser?.name}
+                  {replyUser? replyUser?.name: "USER"}
                 </span>
               }
               description={

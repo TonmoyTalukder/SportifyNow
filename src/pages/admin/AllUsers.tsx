@@ -23,7 +23,7 @@ const AllUsers: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
-  const { data: usersData = [], isLoading } = useGetUsersQuery(undefined);
+  const { data: usersData = [], isLoading } = useGetUsersQuery(undefined, {pollingInterval: 10000});
   const users = Array.isArray(usersData.data) ? usersData.data : [];
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [adminOnly, setAdminOnly] = useState(false); // State for Admin Only filter
@@ -93,7 +93,7 @@ const AllUsers: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
-      render: ( record: TUser) => (
+      render: (record: TUser) => (
         <>
           <Button
             onClick={() => handleUpdate(record)}
@@ -102,7 +102,11 @@ const AllUsers: React.FC = () => {
           >
             Update
           </Button>
-          <Button onClick={() => handleDelete(record._id)} type="default" style={{backgroundColor: 'red', border: 'transparent'}}>
+          <Button
+            onClick={() => handleDelete(record._id)}
+            type="default"
+            style={{ backgroundColor: "red", border: "transparent" }}
+          >
             Delete
           </Button>
         </>
@@ -120,15 +124,21 @@ const AllUsers: React.FC = () => {
         style={{ marginBottom: 16, width: isMobile ? "45%" : "25%" }}
       />
       <span style={{ marginLeft: 16 }}>
-        <Switch checked={adminOnly} onChange={setAdminOnly} style={{ marginRight: 8 }} />
+        <Switch
+          checked={adminOnly}
+          onChange={setAdminOnly}
+          style={{ marginRight: 8 }}
+        />
         Admin Only
       </span>
+
       <Table
         dataSource={filteredUsers}
         columns={columns}
         rowKey="_id"
         loading={isLoading}
       />
+
       {selectedUser && (
         <Modal
           title="Update User"
@@ -171,9 +181,9 @@ const AllUsers: React.FC = () => {
               ]}
             >
               <Radio.Group id="role">
-                  <Radio value="male">Male</Radio>
-                  <Radio value="female">Female</Radio>
-                </Radio.Group>
+                <Radio value="male">Male</Radio>
+                <Radio value="female">Female</Radio>
+              </Radio.Group>
             </Form.Item>
             <Form.Item
               name="role"
@@ -181,9 +191,9 @@ const AllUsers: React.FC = () => {
               rules={[{ required: true, message: "Please select the role!" }]}
             >
               <Radio.Group id="role">
-                  <Radio value="admin">Admin</Radio>
-                  <Radio value="user">User</Radio>
-                </Radio.Group>
+                <Radio value="admin">Admin</Radio>
+                <Radio value="user">User</Radio>
+              </Radio.Group>
             </Form.Item>
             <Form.Item
               name="address"

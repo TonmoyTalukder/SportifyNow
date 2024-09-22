@@ -100,7 +100,7 @@ const AllReviews = () => {
           //   background: "linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(1, 1, 9) 45%, rgb(1, 1, 9) 55%, rgba(0, 0, 0, 1) 100%)",
           borderRadius: "25px",
           zIndex: "0",
-          padding: '2px',
+          padding: "2px",
         }}
       >
         {reviews.map((review) => (
@@ -141,7 +141,7 @@ const AllReviews = () => {
                 >
                   <Meta
                     avatar={
-                      review.userId.avatar ? (
+                      review?.userId?.avatar ? (
                         <Avatar src={review.userId.avatar} size={50} />
                       ) : (
                         <PiUserDuotone
@@ -151,7 +151,7 @@ const AllReviews = () => {
                     }
                     title={
                       <Text style={{ fontSize: "20px", color: "white" }} strong>
-                        {review.userId.name}
+                        {review?.userId?.name}
                       </Text>
                     }
                     description={
@@ -177,7 +177,7 @@ const AllReviews = () => {
                             display: "block",
                           }}
                         >
-                          {truncateContent(review.content, 6)}{" "}
+                          {truncateContent(review?.content, 6)}{" "}
                           {review.content.split(" ").length > 6 && (
                             <Link
                               style={{ color: "#1890ff", cursor: "pointer" }}
