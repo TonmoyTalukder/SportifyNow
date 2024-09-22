@@ -21,15 +21,6 @@ const reviewApi = baseApi.injectEndpoints({
       providesTags: ['facilityReviews'],
     }),
     
-    // Fetch reviews by user ID
-    getReviewsByUser: builder.query({
-      query: (userId) => ({
-        url: `/review/user/${userId}`,
-        method: 'GET',
-      }),
-      providesTags: ['userReviews'],
-    }),
-    
     // Create a new review
     createReview: builder.mutation({
       query: (reviewData) => ({
@@ -59,7 +50,7 @@ const reviewApi = baseApi.injectEndpoints({
       invalidatesTags: ['reviews', 'facilityReviews', 'userReviews'],
     }),
 
-    // Delete a review (soft delete)
+    // Delete a reply (soft delete)
     deleteReply: builder.mutation<void, { reviewId: string, replyId: string }>({
       query: ({ reviewId, replyId }) => ({
         url: `/review/${reviewId}/replies/${replyId}`,
@@ -93,7 +84,7 @@ const reviewApi = baseApi.injectEndpoints({
 export const {
   useGetAllReviewsQuery,
   useGetReviewsByFacilityQuery,
-  useGetReviewsByUserQuery,
+
   useCreateReviewMutation,
   useUpdateReviewMutation,
   useDeleteReviewMutation,

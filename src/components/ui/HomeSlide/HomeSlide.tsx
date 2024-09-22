@@ -6,7 +6,7 @@ import Slide2 from "./Slide2";
 import Slide3 from "./Slide3";
 import "./HomeSlide.css";
 import { Link } from "react-router-dom";
-import Title from "antd/es/typography/Title";
+// import Title from "antd/es/typography/Title";
 import { useGetFacilityQuery } from "../../../redux/features/facility/facilityApi";
 
 interface Facility {
@@ -182,15 +182,15 @@ const HomeSlide = () => {
                     <div>
                       <Link to="/">
                         <Image
-                          width={160}
+                          width={120}
                           src="/SportifyNow.png"
                           alt="SportifyNow"
                           preview={false}
                         />
                       </Link>
                     </div>
-                    <Title
-                      level={1}
+                    <h1
+                      // level={1}
                       style={{
                         textAlign: "left",
                         // marginBottom: "1vh",
@@ -198,20 +198,20 @@ const HomeSlide = () => {
                         zIndex: 1,
                       }}
                     >
-                      SportifyNow
-                    </Title>
+                      Sportify Now
+                    </h1>
 
-                    <Title
-                      level={3}
+                    <h3
+                      // level={3}
                       style={{
                         textAlign: "left",
-                        marginBottom: "4vh",
+                        // marginBottom: "4vh",
                         color: "#FBFCF8",
                         zIndex: 1,
                       }}
                     >
                       Easy Booking, Epic Games
-                    </Title>
+                    </h3>
                   </Col>
                   <Col span={12}>
                     <div
@@ -223,12 +223,13 @@ const HomeSlide = () => {
                       }}
                     >
                       <Image
-                        width={200}
+                        width={160}
                         src="/sportCeleb.jpg"
                         alt="HeroCover"
                         preview={false}
                         style={{
                           borderRadius: "100px",
+                          marginTop: '-2vh'
                         }}
                       />
                     </div>
@@ -238,7 +239,7 @@ const HomeSlide = () => {
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
-                        marginTop: '-2vh'
+                        marginTop: '-3vh'
                       }}
                     >
                       <p
@@ -246,7 +247,7 @@ const HomeSlide = () => {
                           textAlign: "left",
                           color: "#FBFCF8",
                           zIndex: 1,
-                          fontSize: "18px",
+                          fontSize: "15px",
                         }}
                       >
                         <span>Explore Our</span>
@@ -320,6 +321,7 @@ const HomeSlide = () => {
                   border: "none",
                   transition: "background-color 0.3s, box-shadow 0.3s",
                   visibility: slideIndex === 0 ? "hidden" : "visible",
+                  marginLeft: isMobile ? "8vw" : "0vw",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = "#2b3340";

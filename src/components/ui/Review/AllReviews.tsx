@@ -72,7 +72,7 @@ const AllReviews = () => {
   const isLoopEnabled = reviews.length > 1; // Check if there are enough reviews for looping
 
   return (
-    <div style={{ padding: "2vh 8vw" }}>
+    <div style={{ padding: "2vh 4vw" }}>
       <Title
         level={1}
         style={{ textAlign: "center", marginBottom: "5vh", color: "#FBFCF8" }}
@@ -100,7 +100,7 @@ const AllReviews = () => {
           //   background: "linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(1, 1, 9) 45%, rgb(1, 1, 9) 55%, rgba(0, 0, 0, 1) 100%)",
           borderRadius: "25px",
           zIndex: "0",
-          padding: '20px',
+          padding: '2px',
         }}
       >
         {reviews.map((review) => (

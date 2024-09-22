@@ -73,17 +73,41 @@ const HomeLayout = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsHeaderFixed(true);
-      } else {
-        setIsHeaderFixed(false);
-      }
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-      if (window.scrollY > 100) {
-        setIsScrollToTopVisible(true);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!isMobile) {
+        if (window.scrollY > 100) {
+          setIsHeaderFixed(true);
+        } else {
+          setIsHeaderFixed(false);
+        }
+
+        if (window.scrollY > 100) {
+          setIsScrollToTopVisible(true);
+        } else {
+          setIsScrollToTopVisible(false);
+        }
       } else {
-        setIsScrollToTopVisible(false);
+        if (window.scrollY > 10) {
+          setIsHeaderFixed(true);
+        } else {
+          setIsHeaderFixed(false);
+        }
+
+        if (window.scrollY > 10) {
+          setIsScrollToTopVisible(true);
+        } else {
+          setIsScrollToTopVisible(false);
+        }
       }
     };
 
@@ -95,12 +119,18 @@ const HomeLayout = () => {
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue =
+        "Are you sure you want to reload the page? You may lost unsaved items.";
     };
-    window.addEventListener("resize", handleResize);
+
+    // Add the event listener to handle before unload for the entire app
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
@@ -206,7 +236,7 @@ const HomeLayout = () => {
                     fontSize: "16px",
                   }}
                 >
-                  {user.name}
+                  {user.name.split(' ')[0]}
                 </p>
               </div>
             )}
@@ -260,16 +290,18 @@ const HomeLayout = () => {
                 <Button
                   onClick={handleDrawerOpen}
                   style={{
-                    position: "fixed",
-                    right: 0,
-                    transform: "translateY(-50%)",
+                    position: "relative",
+                    // right: 0,
+                    // transform: "translateY(-50%)",
                     borderRadius: "0 5px 5px 0",
                     backgroundColor: "transparent",
                     color: "#daa611",
                     filter: "drop-shadow(5px 5px 10px rgba(154, 10, 96, 0.8))",
                     border: "none",
-                    zIndex: 1000,
+                    zIndex: 1,
                     fontSize: "34px",
+                    marginTop: ' 1.5rem',
+                    // marginLeft: '2rem'
                   }}
                 >
                   <GiWindyStripes />

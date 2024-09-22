@@ -77,7 +77,7 @@ const LoyaltyPledge: React.FC = () => {
     color: "#fff",
     textAlign: "center" as const,
     padding: "20px",
-    height: "300px",
+    height: "325px",
   };
 
   const sectionStyle = {

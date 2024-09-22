@@ -13,7 +13,7 @@ type FormData = {
 };
 
 const ForgetPassword = () => {
-  const { control, handleSubmit, reset, setError } = useForm<FormData>();
+  const { control, handleSubmit, reset } = useForm<FormData>();
 
   // State to manage success message and form submission status
   const [message, setMessage] = useState<string | null>(null);
@@ -75,37 +75,28 @@ const ForgetPassword = () => {
             label="Email"
             name="email"
             style={{ color: "royalblue" }}
-            rules={[
-              {
-                required: true,
-                message: "Email is required",
-              },
-              {
-                type: "email",
-                message: "Please enter a valid email",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Email is required",
+            //   },
+            //   {
+            //     type: "email",
+            //     message: "Please enter a valid email",
+            //   },
+            // ]}
           >
             <Controller
               name="email"
               control={control}
-              render={({ field, fieldState }) => (
-                <>
-                  <Input
-                    {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                      // Custom validation
-                      if (!e.target.value) {
-                        setError("email", { type: "required", message: "Email is required" });
-                      } else if (!/\S+@\S+\.\S+/.test(e.target.value)) {
-                        setError("email", { type: "pattern", message: "Please enter a valid email" });
-                      }
-                    }}
-                  />
-                  {fieldState.error && <div style={{ color: "red" }}>{fieldState.error.message}</div>}
-                </>
-              )}
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email",
+                },
+              }}
+              render={({ field }) => <Input {...field} id="email" />}
             />
           </Form.Item>
 

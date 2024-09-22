@@ -9,6 +9,7 @@ import "swiper/css/effect-coverflow"; // Import effect-coverflow styles
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from "swiper/modules"; // Import EffectCoverflow
 import SportCard from "../../components/ui/Cards/SportCard";
 import "../../styles/FeaturedSportsFacility.css";
+import './FeturedSports.css'
 
 // Ant Design components
 const { Title } = Typography;
@@ -55,7 +56,7 @@ const FeaturedSportsFacility = () => {
   
 
   return (
-    <div style={{ padding: "2vh 8vw" }}>
+    <div style={{ padding: "2vh 8vw" }} className="featured-sports">
       <Title
         level={1}
         style={{ textAlign: "center", marginBottom: "5vh", color: "#FBFCF8" }}

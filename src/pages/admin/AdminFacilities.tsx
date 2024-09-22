@@ -87,7 +87,7 @@ const AdminFacilities: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
-      render: (text: any, record: TFacility) => (
+      render: ( record: TFacility) => (
         <>
           <Button
             onClick={() => handleUpdate(record)}

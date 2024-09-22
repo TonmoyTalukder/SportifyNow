@@ -50,7 +50,7 @@ const Sidebar = () => {
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-      style={{...gradientStyle, color: "white"}}
+      style={{...gradientStyle, color: "white", zIndex: 30,}}
       width={250}
     >
       <div

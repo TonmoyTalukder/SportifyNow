@@ -40,13 +40,18 @@ const authSlice = createSlice({
         resetRedirect: (state) => {
             state.fromBooking = null;
             state.bookingURL = null;
-        }
+        },
+
+        updateRewards: (state, action) => {
+            if (state.user) {
+                state.user.rewards = action.payload.rewards;
+            }
+        },
     },
 });
 
-export const { setUser, logout, redirectBooking, resetRedirect } = authSlice.actions;
+export const { setUser, logout, redirectBooking, resetRedirect, updateRewards } = authSlice.actions;
 
 export default authSlice.reducer;
-
 export const useCurrentToken = (state: RootState) => state.auth.token;
 export const useCurrentUser = (state: RootState) => state.auth.user;

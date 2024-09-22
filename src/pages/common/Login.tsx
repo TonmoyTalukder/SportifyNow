@@ -34,6 +34,7 @@ const Login = () => {
 
     try {
       const res = await login(userInfo).unwrap();
+      console.log(res);
       const user = verifyToken(res.accessToken) as TUser;
 
       dispatch(setUser({ user: {...user, newUser: false}, token: res.accessToken }));
@@ -46,11 +47,11 @@ const Login = () => {
         navigate(`/${user.role}/dashboard`); // Redirect based on user role
       }
     } catch (err: any) {
-      toast.error(err.data.message, {
+      toast.error( err.data.message || "Something error", { // err.data.message || 
         id: toastLoggingId,
         duration: 2000,
       });
-      // console.error("Login error:", err.data.message);
+      console.error("Login error:", err);
     }
   };
 

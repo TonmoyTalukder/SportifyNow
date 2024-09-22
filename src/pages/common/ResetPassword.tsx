@@ -97,12 +97,12 @@ const ResetPassword = () => {
             </Form.Item>
           </Form>
         ) : (
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', color: 'black' }}>
             {message}
             <Link to="/login">
-              <Button type="link" style={{ padding: 0 }}>
+              <span style={{ padding: 0, color: 'lightblue' }}>
                 Login here
-              </Button>
+              </span>
             </Link>
           </div>
         )}

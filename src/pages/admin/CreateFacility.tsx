@@ -13,6 +13,7 @@ type FormData = {
   image: string;
   location: string;
   pricePerHour: string;
+  rewards: string;
   description: string;
 };
 
@@ -30,6 +31,7 @@ const CreateFacility = () => {
       name: "",
       image: "",
       location: "",
+      rewards: "",
       pricePerHour: "",
       description: "",
     },
@@ -153,6 +155,25 @@ const CreateFacility = () => {
                   },
                 }}
                 render={({ field }) => <Input {...field} id="pricePerHour" />}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Rewards"
+              validateStatus={errors.rewards ? "error" : ""}
+              help={errors.rewards?.message}
+            >
+              <Controller
+                name="rewards"
+                control={control}
+                rules={{
+                  required: "Rewards is required",
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Please enter a valid rewards",
+                  },
+                }}
+                render={({ field }) => <Input {...field} id="rewards" />}
               />
             </Form.Item>
 

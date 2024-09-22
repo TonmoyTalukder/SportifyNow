@@ -1,5 +1,4 @@
 import { Card, Col, Image, Row } from "antd";
-import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 
 const Slide1 = () => {
@@ -111,26 +110,31 @@ const Slide1 = () => {
                 marginLeft: "10px",
               }}
             >
-              <Title
-                level={1}
+              <h2
+                // level={4}
                 style={{
                   textAlign: "left",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 Intensive Coaching 24x7
-              </Title>
-              <Title
-                level={4}
+              </h2>
+              <p
                 style={{
                   textAlign: "left",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 Get our intensive coaching to improve your sport skills.
-              </Title>
+              </p>
             </div>
           </Col>
         </Row>

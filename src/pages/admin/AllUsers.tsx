@@ -93,7 +93,7 @@ const AllUsers: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
-      render: (text: any, record: TUser) => (
+      render: ( record: TUser) => (
         <>
           <Button
             onClick={() => handleUpdate(record)}

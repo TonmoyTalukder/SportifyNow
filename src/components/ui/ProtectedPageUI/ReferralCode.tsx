@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Typography, Space, Spin, message } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
 import {
@@ -16,7 +16,8 @@ const ReferralCode = () => {
   const [generateReferralCode, { isLoading: generating }] =
     useGenerateReferralCodeMutation();
 
-console.log("refer data => ", data?.referralCode);
+console.log("refer data => ", data);
+console.log("refer error => ", error);
 
   const [referralCode, setReferralCode] = useState<string | null>(null);
 

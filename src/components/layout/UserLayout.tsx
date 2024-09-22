@@ -3,10 +3,26 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { Header } from "antd/es/layout/layout";
 import CustomHeader from "../ui/CustomHeader";
+import { useEffect } from "react";
 
 const { Content, Footer } = Layout;
 
 const UserLayout = () => {
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue =
+        "Are you sure you want to reload the page? You may lost unsaved items.";
+    };
+
+    // Add the event listener to handle before unload for the entire app
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <Layout style={{ height: "100vh", background: "#FBFCF8" }}>
       {" "}

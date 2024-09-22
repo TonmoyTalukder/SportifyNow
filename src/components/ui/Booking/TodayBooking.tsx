@@ -3,18 +3,23 @@ import { Table, Input, Tag, Switch, Radio, Space } from "antd";
 import moment from "moment";
 import { useGetAdminBookingsQuery } from "../../../redux/features/booking/bookingApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../../redux/store";
 
 const { Search } = Input;
 
 const TodayBooking = () => {
-  const {
-    data: bookingData,
-    isLoading,
-    error,
-  } = useGetAdminBookingsQuery(undefined);
+  // const token = useSelector((state: RootState) => state.auth.token);
+
+  // console.log(token)
+
+  const { data: bookingData, isLoading, error } = useGetAdminBookingsQuery(undefined);
+
+  // console.log("bookingData => ", bookingData);
 
   let checkedError = false;
   if (error) {
+    console.log(error);
     const httpError = error as FetchBaseQueryError;
     if (httpError.status !== 404) {
       checkedError = true;

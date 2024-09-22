@@ -1,5 +1,4 @@
 import { Card, Col, Image, Row } from "antd";
-import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 
 const Slide3 = () => {
@@ -71,7 +70,7 @@ const Slide3 = () => {
                 style={{
                   borderRadius: "10px",
                   width: "100%",
-                  height: "23rem",
+                  height: isMobile ? "auto" : "18rem",
                 }}
               />
               {/* Overlay pseudo-element for crosswise lines */}
@@ -111,26 +110,30 @@ const Slide3 = () => {
                 marginLeft: "5px",
               }}
             >
-              <Title
-                level={1}
+              <h2
                 style={{
                   textAlign: "left",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 World-class Infrastructure
-              </Title>
-              <Title
-                level={4}
+              </h2>
+              <p
                 style={{
                   textAlign: "left",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 We have world class sport facility infrastructure.
-              </Title>
+              </p>
             </div>
           </Col>
         </Row>

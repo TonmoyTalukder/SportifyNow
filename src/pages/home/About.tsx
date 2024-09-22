@@ -16,7 +16,7 @@ const About: React.FC = () => {
       children: (
         <Card
           title="Mission"
-          style={{ marginRight: 20, backgroundColor: "#FBFCF8" }}
+          style={{ marginRight: 0, backgroundColor: "#FBFCF8" }}
         >
           <p style={{ color: "black" }}>
             {" "}
@@ -92,7 +92,7 @@ const About: React.FC = () => {
       children: (
         <Card
           title="Our Team"
-          style={{ marginRight: 20, backgroundColor: "#FBFCF8" }}
+          style={{ marginRight: 0, backgroundColor: "#FBFCF8" }}
         >
           <Row gutter={[16, 16]}>
             <Col span={12}>
@@ -156,7 +156,7 @@ const About: React.FC = () => {
         <Card
           title="Our Journey"
           style={{
-            marginRight: 20,
+            marginRight: 0,
             backgroundColor: "#FBFCF8",
             maxHeight: "50vh",
             overflowY: "auto",
@@ -191,7 +191,7 @@ const About: React.FC = () => {
       children: (
         <Card
           title="Contact Us"
-          style={{ marginRight: 20, backgroundColor: "#FBFCF8" }}
+          style={{ marginRight: 0, backgroundColor: "#FBFCF8" }}
         >
           <p style={{ color: "black" }}>
             <HomeOutlined /> Office: 123 Sports Ave, Cityname
@@ -245,7 +245,7 @@ const About: React.FC = () => {
                     },
                   }}
                 >
-                  <Tabs size="small" tabPosition="left" items={tabItems} />
+                  <Tabs style={{marginLeft: '-2rem'}} size="small" tabPosition="left" items={tabItems} />
                 </ConfigProvider>
               </Col>
             </Row>

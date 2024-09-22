@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://sportify-now.vercel.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

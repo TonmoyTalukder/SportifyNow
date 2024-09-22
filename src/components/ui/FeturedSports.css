@@ -1,0 +1,18 @@
+.featured-sports .swiper-button-next,
+.swiper-button-prev {
+  color: rgba(158, 166, 173, 0.5); /* Change this to any color you like */
+}
+
+.featured-sports .swiper-button-next,
+.swiper-button-prev {
+  top: 50%; /* Move buttons vertically to the center */
+  transform: translateY(-50%); /* Center the button */
+}
+
+.featured-sports .swiper-button-next {
+  right: -1px; /* Adjust position for the next button */
+}
+
+.featured-sports .swiper-button-prev {
+  left: -1px; /* Adjust position for the previous button */
+}

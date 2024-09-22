@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Input,
   Row,
@@ -28,15 +28,31 @@ interface Facility {
 
 // Main Sports component
 const Sports = () => {
-  const { data: facilitiesData = [], isLoading } = useGetFacilityQuery(undefined, {
-    pollingInterval: 600000, // Polls every 10 minutes
-  });
+  const { data: facilitiesData = [], isLoading } = useGetFacilityQuery(
+    undefined,
+    {
+      pollingInterval: 600000, // Polls every 10 minutes
+    },
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [locationTerm, setLocationTerm] = useState("");
   const [priceRange, setPriceRange] = useState([0, 100]); // Assuming price range between 0-100
   const [priceSortOption, setPriceSortOption] = useState<string | null>(null);
   const [nameSortOption, setNameSortOption] = useState<string | null>(null);
-  
+
+  // useState to handle mobile view
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const facilitiesPerPage = 8; // Show 8 facilities per page
@@ -79,7 +95,7 @@ const Sports = () => {
   const startIndex = (currentPage - 1) * facilitiesPerPage;
   const paginatedFacilities = filteredFacilities.slice(
     startIndex,
-    startIndex + facilitiesPerPage
+    startIndex + facilitiesPerPage,
   );
 
   if (isLoading) {
@@ -122,10 +138,12 @@ const Sports = () => {
         <div
           style={{
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             justifyContent: "center",
             alignItems: "center",
-            gap: "20px",
+            gap: isMobile ? '0px': "20px",
             marginTop: "5px",
+            marginBottom: isMobile ? '10px': "0px"
           }}
         >
           <span style={{ color: "#fff" }}>
@@ -147,7 +165,7 @@ const Sports = () => {
               min={0}
               max={100}
               onChange={(value) => setPriceRange(value)}
-              style={{ width: "350px" }}
+              style={{ width: isMobile ? '300px': "350px" }}
             />
           </ConfigProvider>
         </div>
@@ -157,16 +175,17 @@ const Sports = () => {
           style={{
             textAlign: "center",
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             justifyContent: "center",
             alignItems: "center",
-            gap: "20px",
+            gap:  isMobile ? '0px': "20px",
           }}
         >
           <ConfigProvider
             theme={{
               components: {
                 Segmented: {
-                  itemSelectedBg: '#91caff'
+                  itemSelectedBg: "#91caff",
                 },
               },
             }}

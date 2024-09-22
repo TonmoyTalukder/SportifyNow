@@ -38,6 +38,7 @@ const CustomHeader = () => {
         style={{
           display: "flex",
           marginRight: "1vw",
+          zIndex: 0,
         }}
       >
         <Image
@@ -50,6 +51,7 @@ const CustomHeader = () => {
             transform: "rotateY(25deg)",
             borderRadius: "50%",
             border: "1px solid #213c63",
+            zIndex: 0,
           }}
           preview={false}
         />

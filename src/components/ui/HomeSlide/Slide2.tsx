@@ -1,5 +1,4 @@
 import { Card, Col, Image, Row } from "antd";
-import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 
 const Slide2 = () => {
@@ -66,26 +65,30 @@ const Slide2 = () => {
                 marginRight: "10px",
               }}
             >
-              <Title
-                level={1}
+              <h2
                 style={{
                   textAlign: "right",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 One to One Personal Care
-              </Title>
-              <Title
-                level={4}
+              </h2>
+              <p
                 style={{
                   textAlign: "right",
                   color: "#FBFCF8",
                   zIndex: 1,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 We care your personal skill growth one to one.
-              </Title>
+              </p>
             </div>
           </Col>
           <Col
